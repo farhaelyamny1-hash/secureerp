@@ -4,11 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Plus, Search, MoreHorizontal, Mail, Phone } from "lucide-react";
 
 const customers = [
-  { id: 1, name: "شركة النور للتجارة", email: "info@alnoor.com", phone: "0501234567", invoices: 12, total: "٤٥,٠٠٠ ر.س" },
-  { id: 2, name: "مؤسسة الوفاء", email: "contact@alwafa.com", phone: "0559876543", invoices: 8, total: "٢٨,٥٠٠ ر.س" },
-  { id: 3, name: "متجر السلام", email: "sales@alsalam.com", phone: "0541112233", invoices: 15, total: "٦٧,٢٠٠ ر.س" },
-  { id: 4, name: "شركة البناء الحديث", email: "info@albina.com", phone: "0567778899", invoices: 5, total: "١٢٠,٠٠٠ ر.س" },
-  { id: 5, name: "مجموعة التقنية", email: "tech@group.com", phone: "0533334444", invoices: 20, total: "٨٩,٣٠٠ ر.س" },
+  { id: 1, name: "شركة النور للتجارة", email: "info@alnoor.com", phone: "01012345678", invoices: 12, total: "٤٥,٠٠٠ ج.م" },
+  { id: 2, name: "مؤسسة الوفاء", email: "contact@alwafa.com", phone: "01198765432", invoices: 8, total: "٢٨,٥٠٠ ج.م" },
+  { id: 3, name: "متجر السلام", email: "sales@alsalam.com", phone: "01011122233", invoices: 15, total: "٦٧,٢٠٠ ج.م" },
+  { id: 4, name: "شركة البناء الحديث", email: "info@albina.com", phone: "01067778899", invoices: 5, total: "١٢٠,٠٠٠ ج.م" },
+  { id: 5, name: "مجموعة التقنية", email: "tech@group.com", phone: "01033334444", invoices: 20, total: "٨٩,٣٠٠ ج.م" },
 ];
 
 const CustomersPage = () => {
