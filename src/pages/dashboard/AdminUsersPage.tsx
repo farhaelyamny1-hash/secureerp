@@ -130,9 +130,21 @@ const AdminUsersPage = () => {
             تفعيل ورفض حسابات الأعضاء المسجلين
           </p>
         </div>
-        <Badge variant="secondary" className="text-sm">
-          {profiles.filter((p) => !p.is_approved).length} في انتظار التفعيل
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge variant="secondary" className="text-sm">
+            {profiles.filter((p) => !p.is_approved).length} في انتظار التفعيل
+          </Badge>
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={sendingReset}
+            onClick={sendResetToAll}
+            className="gap-1.5"
+          >
+            <KeyRound className="w-4 h-4" />
+            {sendingReset ? "جاري الإرسال..." : "إرسال تغيير كلمة المرور للجميع"}
+          </Button>
+        </div>
       </div>
 
       <div className="relative max-w-sm">
