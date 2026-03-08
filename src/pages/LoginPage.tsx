@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const LoginPage = () => {
@@ -14,17 +15,71 @@ const LoginPage = () => {
   const { signIn } = useAuth();
   const navigate = useNavigate();
 
+  const ensureCompanySetup = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const [ownerCompanyRes, memberCompanyRes] = await Promise.all([
+      supabase.from("companies").select("id").eq("owner_id", user.id).maybeSingle(),
+      supabase.from("company_members").select("company_id").eq("user_id", user.id).maybeSingle(),
+    ]);
+
+    if (ownerCompanyRes.data || memberCompanyRes.data) return;
+
+    const { data: plan } = await supabase
+      .from("plans")
+      .select("id")
+      .eq("slug", "starter")
+      .maybeSingle();
+
+    const firstName = typeof user.user_metadata?.first_name === "string"
+      ? user.user_metadata.first_name.trim()
+      : "";
+    const metadataCompany = typeof user.user_metadata?.company_name === "string"
+      ? user.user_metadata.company_name.trim()
+      : "";
+
+    const { data: company, error: companyError } = await supabase
+      .from("companies")
+      .insert({
+        owner_id: user.id,
+        name: metadataCompany || (firstName ? `شركة ${firstName}` : "شركتي"),
+        plan_id: plan?.id ?? null,
+      })
+      .select("id")
+      .single();
+
+    if (companyError || !company) return;
+
+    if (plan?.id) {
+      await supabase.from("subscriptions").insert({
+        company_id: company.id,
+        plan_id: plan.id,
+        status: "trial",
+        billing_cycle: "monthly",
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const { error } = await signIn(email, password);
-    setLoading(false);
+
     if (error) {
+      setLoading(false);
+      if (error.message?.toLowerCase().includes("email not confirmed")) {
+        toast.error("يرجى تفعيل البريد الإلكتروني أولًا قبل تسجيل الدخول.");
+        return;
+      }
       toast.error("خطأ في تسجيل الدخول: " + error.message);
-    } else {
-      toast.success("تم تسجيل الدخول بنجاح");
-      navigate("/dashboard");
+      return;
     }
+
+    await ensureCompanySetup();
+    setLoading(false);
+    toast.success("تم تسجيل الدخول بنجاح");
+    navigate("/dashboard");
   };
 
   return (
