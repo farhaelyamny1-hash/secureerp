@@ -19,6 +19,8 @@ import CustomersPage from "./pages/dashboard/CustomersPage";
 import ProductsPage from "./pages/dashboard/ProductsPage";
 import InvoicesPage from "./pages/dashboard/InvoicesPage";
 import PlaceholderPage from "./pages/dashboard/PlaceholderPage";
+import QuotationsPage from "./pages/dashboard/QuotationsPage";
+import PaymentsPage from "./pages/dashboard/PaymentsPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import CheckoutPage from "./pages/CheckoutPage";
@@ -61,9 +63,9 @@ const App = () => (
               <Route path="customers" element={<CustomersPage />} />
               <Route path="products" element={<ProductsPage />} />
               <Route path="inventory" element={<PlaceholderPage title="المخزون" description="إدارة المخزون والتتبع" />} />
-              <Route path="quotations" element={<PlaceholderPage title="عروض الأسعار" description="إنشاء وإدارة عروض الأسعار" />} />
+              <Route path="quotations" element={<QuotationsPage />} />
               <Route path="invoices" element={<InvoicesPage />} />
-              <Route path="payments" element={<PlaceholderPage title="المدفوعات" description="تسجيل ومتابعة المدفوعات" />} />
+              <Route path="payments" element={<PaymentsPage />} />
               <Route path="expenses" element={<PlaceholderPage title="المصروفات" description="تتبع وتصنيف المصروفات" />} />
               <Route path="reports" element={<ReportsPage />} />
               <Route path="employees" element={<PlaceholderPage title="الموظفين" description="إدارة الموظفين والصلاحيات" />} />
