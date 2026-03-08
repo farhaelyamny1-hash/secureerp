@@ -87,19 +87,20 @@ const InvoiceFormDialog = ({
   };
 
   const selectProduct = (index: number, productId: string) => {
+    const nextItems = [...form.items];
+
+    if (productId === "manual") {
+      nextItems[index] = {
+        ...nextItems[index],
+        product_id: null,
+      };
+      onFormChange({ ...form, items: nextItems });
+      return;
+    }
+
     const product = products.find((item) => item.id === productId);
     if (!product) return;
 
-    const nextItems = [...form.items];
-    nextItems[index] = {
-      ...nextItems[index],
-      product_id: product.id,
-      description: product.name,
-      unit_price: Number(product.price) || 0,
-    };
-
-    onFormChange({ ...form, items: nextItems });
-  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
