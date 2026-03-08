@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, Package, Warehouse, FileText, Receipt,
   CreditCard, ShoppingCart, BarChart3, UserCog, Bell, Search,
   Shield, ChevronLeft, Menu, LogOut, Settings
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "لوحة التحكم", href: "/dashboard" },
@@ -25,6 +26,8 @@ const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { signOut, user } = useAuth();
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -76,13 +79,13 @@ const DashboardLayout = () => {
 
         {/* Logout */}
         <div className="p-2 border-t border-sidebar-border">
-          <Link
-            to="/"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent"
+          <button
+            onClick={async () => { await signOut(); navigate("/"); }}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent"
           >
             <LogOut className="w-5 h-5 flex-shrink-0" />
             {!collapsed && <span>تسجيل الخروج</span>}
-          </Link>
+          </button>
         </div>
       </aside>
 

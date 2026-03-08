@@ -1,10 +1,32 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Shield } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const { error } = await signIn(email, password);
+    setLoading(false);
+    if (error) {
+      toast.error("خطأ في تسجيل الدخول: " + error.message);
+    } else {
+      toast.success("تم تسجيل الدخول بنجاح");
+      navigate("/dashboard");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <motion.div
@@ -25,17 +47,37 @@ const LoginPage = () => {
 
         <form
           className="bg-card border border-border rounded-2xl p-8 space-y-4"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
         >
           <div>
             <label className="text-sm font-medium text-foreground block mb-1.5">البريد الإلكتروني</label>
-            <Input type="email" placeholder="example@company.com" className="font-body" />
+            <Input
+              type="email"
+              placeholder="example@company.com"
+              className="font-body"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           <div>
             <label className="text-sm font-medium text-foreground block mb-1.5">كلمة المرور</label>
-            <Input type="password" placeholder="••••••••" className="font-body" />
+            <Input
+              type="password"
+              placeholder="••••••••"
+              className="font-body"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
-          <Button className="w-full gradient-primary text-primary-foreground font-heading h-11">دخول</Button>
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full gradient-primary text-primary-foreground font-heading h-11"
+          >
+            {loading ? "جاري الدخول..." : "دخول"}
+          </Button>
           <p className="text-center text-sm text-muted-foreground">
             ليس لديك حساب؟{" "}
             <Link to="/register" className="text-primary font-semibold hover:underline">سجل الآن</Link>
