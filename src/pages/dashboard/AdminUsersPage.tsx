@@ -29,6 +29,7 @@ const AdminUsersPage = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [sendingReset, setSendingReset] = useState(false);
 
   useEffect(() => {
     checkAccess();
