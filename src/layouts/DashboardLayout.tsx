@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, Package, Warehouse, FileText, Receipt,
@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "لوحة التحكم", href: "/dashboard" },
@@ -26,9 +27,22 @@ const menuItems = [
 const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { signOut, user } = useAuth();
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      if (!user) return;
+      const { data } = await supabase.rpc("has_role", {
+        _user_id: user.id,
+        _role: "super_admin",
+      });
+      setIsSuperAdmin(!!data);
+    };
+    checkAdmin();
+  }, [user]);
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -58,7 +72,9 @@ const DashboardLayout = () => {
 
         {/* Menu */}
         <nav className="flex-1 overflow-y-auto py-4 px-2 space-y-1">
-          {menuItems.map((item) => {
+          {menuItems
+            .filter((item) => item.href !== "/dashboard/admin/users" || isSuperAdmin)
+            .map((item) => {
             const isActive = location.pathname === item.href;
             return (
               <Link
