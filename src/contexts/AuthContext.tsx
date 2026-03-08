@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       password,
       options: {
         data: metadata,
-        emailRedirectTo: window.location.origin,
+        emailRedirectTo: "https://secureerp.lovable.app",
       },
     });
     return { error };
