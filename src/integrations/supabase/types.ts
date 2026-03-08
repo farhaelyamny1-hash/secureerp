@@ -456,6 +456,7 @@ export type Database = {
           notes: string | null
           payment_date: string
           payment_method: string | null
+          receipt_url: string | null
           reference: string | null
         }
         Insert: {
@@ -467,6 +468,7 @@ export type Database = {
           notes?: string | null
           payment_date?: string
           payment_method?: string | null
+          receipt_url?: string | null
           reference?: string | null
         }
         Update: {
@@ -478,6 +480,7 @@ export type Database = {
           notes?: string | null
           payment_date?: string
           payment_method?: string | null
+          receipt_url?: string | null
           reference?: string | null
         }
         Relationships: [
@@ -643,6 +646,54 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      quotation_items: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          product_id: string | null
+          quantity: number
+          quotation_id: string
+          total: number
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          product_id?: string | null
+          quantity?: number
+          quotation_id: string
+          total?: number
+          unit_price?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          product_id?: string | null
+          quantity?: number
+          quotation_id?: string
+          total?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quotation_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotation_items_quotation_id_fkey"
+            columns: ["quotation_id"]
+            isOneToOne: false
+            referencedRelation: "quotations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       quotations: {
         Row: {
