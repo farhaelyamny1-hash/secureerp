@@ -19,6 +19,7 @@ import CustomersPage from "./pages/dashboard/CustomersPage";
 import ProductsPage from "./pages/dashboard/ProductsPage";
 import InvoicesPage from "./pages/dashboard/InvoicesPage";
 import PlaceholderPage from "./pages/dashboard/PlaceholderPage";
+import ReportsPage from "./pages/dashboard/ReportsPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
 
