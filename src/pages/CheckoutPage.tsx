@@ -84,7 +84,7 @@ const CheckoutPage = () => {
 
   const openWhatsApp = () => {
     const message = encodeURIComponent(
-      `مرحباً، أريد الاشتراك في خطة ${selectedPlan.name} (${billingCycle === "monthly" ? "شهري" : "سنوي"}) بمبلغ $${price}.\nاسم المرسل: ${senderName || "—"}\nرقم الهاتف: ${senderPhone || "—"}\nرقم المعاملة: ${transactionRef || "—"}`
+      `مرحباً، أريد الاشتراك في خطة ${selectedPlan.name} (${billingCycle === "monthly" ? "شهري" : "سنوي"}) بمبلغ ${price} ج.م.\nاسم المرسل: ${senderName || "—"}\nرقم الهاتف: ${senderPhone || "—"}\nرقم المعاملة: ${transactionRef || "—"}`
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, "_blank");
   };
@@ -109,7 +109,7 @@ const CheckoutPage = () => {
           user_id: user.id,
           company_id: company.id,
           title: "طلب اشتراك جديد",
-          message: `خطة: ${selectedPlan.name} | ${billingCycle === "monthly" ? "شهري" : "سنوي"} | $${price} | الطريقة: ${selectedMethod} | المرسل: ${senderName} | الهاتف: ${senderPhone} | المرجع: ${transactionRef} | ملاحظات: ${notes}`,
+          message: `خطة: ${selectedPlan.name} | ${billingCycle === "monthly" ? "شهري" : "سنوي"} | ${price} ج.م | الطريقة: ${selectedMethod} | المرسل: ${senderName} | الهاتف: ${senderPhone} | المرجع: ${transactionRef} | ملاحظات: ${notes}`,
           type: "payment",
         });
       }
@@ -192,7 +192,7 @@ const CheckoutPage = () => {
             </div>
 
             <div className="text-left">
-              <p className="font-heading font-bold text-3xl text-foreground">${price}</p>
+              <p className="font-heading font-bold text-3xl text-foreground">{price} ج.م</p>
               <p className="text-xs text-muted-foreground">
                 {billingCycle === "monthly" ? "/ شهرياً" : "/ سنوياً"}
               </p>
@@ -281,7 +281,7 @@ const CheckoutPage = () => {
                   </div>
 
                   <div className="bg-muted rounded-lg p-4">
-                    <p className="text-sm text-muted-foreground mb-2">أرسل المبلغ <strong className="text-foreground">${price}</strong> إلى الرقم:</p>
+                    <p className="text-sm text-muted-foreground mb-2">أرسل المبلغ <strong className="text-foreground">{price} ج.م</strong> إلى الرقم:</p>
                     <div className="flex items-center gap-3">
                       <span className="font-heading font-bold text-2xl text-foreground tracking-wider" dir="ltr">
                         {PHONE_NUMBER}
