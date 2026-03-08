@@ -106,8 +106,8 @@ const PricingSection = () => {
               </div>
 
               <div className="mb-6">
-                <span className="font-heading font-bold text-4xl text-foreground">${plan.price}</span>
-                <span className="text-muted-foreground text-sm mr-1">/ {plan.period}</span>
+                <span className="font-heading font-bold text-4xl text-foreground">{plan.price}</span>
+                <span className="text-muted-foreground text-sm mr-1">ج.م / {plan.period}</span>
               </div>
 
               <ul className="space-y-3 mb-8">

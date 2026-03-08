@@ -17,9 +17,9 @@ const PHONE_NUMBER = "01222350580";
 const WHATSAPP_NUMBER = "2001222350580";
 
 const plans = [
-  { slug: "starter", name: "المبتدئ", priceMonthly: 49, priceYearly: 470 },
-  { slug: "professional", name: "الاحترافي", priceMonthly: 99, priceYearly: 950 },
-  { slug: "enterprise", name: "المؤسسات", priceMonthly: 199, priceYearly: 1900 },
+  { slug: "starter", name: "عرض التشجيع", priceMonthly: 169, priceYearly: 1690 },
+  { slug: "professional", name: "الاحترافي", priceMonthly: 329, priceYearly: 3290 },
+  { slug: "enterprise", name: "المؤسسات", priceMonthly: 649, priceYearly: 6490 },
 ];
 
 type PaymentMethod = "vodafone_cash" | "instapay" | "whatsapp" | "web_form";
