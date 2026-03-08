@@ -21,7 +21,7 @@ const CTASection = () => {
             جاهز لتطوير أعمالك؟
           </h2>
           <p className="text-lg mb-8 max-w-xl mx-auto" style={{ color: 'hsl(220, 10%, 70%)' }}>
-            انضم لأكثر من 2,000 شركة تثق بـ SecureTech ERP لإدارة أعمالها
+            انضم لأكثر من 2,000 شركة تثق بـ SecureERP لإدارة أعمالها
           </p>
           <Link to="/register">
             <Button size="lg" className="gradient-accent text-primary-foreground font-heading font-semibold px-10 h-12 text-base">

@@ -21,7 +21,7 @@ const MarketingNav = () => {
           <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
             <Shield className="w-5 h-5 text-primary-foreground" />
           </div>
-          <span className="font-heading font-bold text-xl text-foreground">SecureTech</span>
+          <span className="font-heading font-bold text-xl text-foreground">SecureERP</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

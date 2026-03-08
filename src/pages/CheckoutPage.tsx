@@ -129,7 +129,7 @@ const CheckoutPage = () => {
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
               <Shield className="w-6 h-6 text-primary-foreground" />
             </div>
-            <span className="font-heading font-bold text-2xl text-foreground">SecureTech</span>
+            <span className="font-heading font-bold text-2xl text-foreground">SecureERP</span>
           </Link>
           <h1 className="font-heading font-bold text-3xl text-foreground">إتمام الاشتراك</h1>
         </div>

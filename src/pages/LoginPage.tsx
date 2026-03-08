@@ -39,7 +39,7 @@ const LoginPage = () => {
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
               <Shield className="w-6 h-6 text-primary-foreground" />
             </div>
-            <span className="font-heading font-bold text-2xl text-foreground">SecureTech</span>
+            <span className="font-heading font-bold text-2xl text-foreground">SecureERP</span>
           </Link>
           <h1 className="font-heading font-bold text-2xl text-foreground">تسجيل الدخول</h1>
           <p className="text-muted-foreground text-sm mt-1">أدخل بياناتك للوصول إلى حسابك</p>
