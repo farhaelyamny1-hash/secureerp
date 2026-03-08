@@ -23,6 +23,7 @@ import QuotationsPage from "./pages/dashboard/QuotationsPage";
 import PaymentsPage from "./pages/dashboard/PaymentsPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
+import AdminUsersPage from "./pages/dashboard/AdminUsersPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PendingApprovalPage from "./pages/PendingApprovalPage";
 import NotFound from "./pages/NotFound";
