@@ -611,6 +611,7 @@ export type Database = {
           created_at: string
           first_name: string | null
           id: string
+          is_approved: boolean
           language: string | null
           last_name: string | null
           phone: string | null
@@ -622,6 +623,7 @@ export type Database = {
           created_at?: string
           first_name?: string | null
           id?: string
+          is_approved?: boolean
           language?: string | null
           last_name?: string | null
           phone?: string | null
@@ -633,6 +635,7 @@ export type Database = {
           created_at?: string
           first_name?: string | null
           id?: string
+          is_approved?: boolean
           language?: string | null
           last_name?: string | null
           phone?: string | null
