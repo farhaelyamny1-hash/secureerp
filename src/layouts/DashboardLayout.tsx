@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/securetech-logo.png";
+import NotificationsPopover from "@/components/NotificationsPopover";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "لوحة التحكم", href: "/dashboard" },
@@ -126,10 +127,7 @@ const DashboardLayout = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="relative w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-              <Bell className="w-5 h-5" />
-              <span className="absolute -top-0.5 -left-0.5 w-4 h-4 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center">3</span>
-            </button>
+            <NotificationsPopover />
             <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center text-primary-foreground font-heading font-bold text-sm">
               أ
             </div>
