@@ -18,7 +18,9 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import CustomersPage from "./pages/dashboard/CustomersPage";
 import ProductsPage from "./pages/dashboard/ProductsPage";
 import InvoicesPage from "./pages/dashboard/InvoicesPage";
-import PlaceholderPage from "./pages/dashboard/PlaceholderPage";
+import ExpensesPage from "./pages/dashboard/ExpensesPage";
+import EmployeesPage from "./pages/dashboard/EmployeesPage";
+import InventoryPage from "./pages/dashboard/InventoryPage";
 import QuotationsPage from "./pages/dashboard/QuotationsPage";
 import PaymentsPage from "./pages/dashboard/PaymentsPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
@@ -69,13 +71,13 @@ const App = () => (
               <Route index element={<DashboardPage />} />
               <Route path="customers" element={<CustomersPage />} />
               <Route path="products" element={<ProductsPage />} />
-              <Route path="inventory" element={<PlaceholderPage title="المخزون" description="إدارة المخزون والتتبع" />} />
+              <Route path="inventory" element={<InventoryPage />} />
               <Route path="quotations" element={<QuotationsPage />} />
               <Route path="invoices" element={<InvoicesPage />} />
               <Route path="payments" element={<PaymentsPage />} />
-              <Route path="expenses" element={<PlaceholderPage title="المصروفات" description="تتبع وتصنيف المصروفات" />} />
+              <Route path="expenses" element={<ExpensesPage />} />
               <Route path="reports" element={<ReportsPage />} />
-              <Route path="employees" element={<PlaceholderPage title="الموظفين" description="إدارة الموظفين والصلاحيات" />} />
+              <Route path="employees" element={<EmployeesPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="admin/users" element={<AdminUsersPage />} />
             </Route>
