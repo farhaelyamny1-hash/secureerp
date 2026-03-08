@@ -71,13 +71,13 @@ const App = () => (
               <Route index element={<DashboardPage />} />
               <Route path="customers" element={<CustomersPage />} />
               <Route path="products" element={<ProductsPage />} />
-              <Route path="inventory" element={<PlaceholderPage title="المخزون" description="إدارة المخزون والتتبع" />} />
+              <Route path="inventory" element={<InventoryPage />} />
               <Route path="quotations" element={<QuotationsPage />} />
               <Route path="invoices" element={<InvoicesPage />} />
               <Route path="payments" element={<PaymentsPage />} />
-              <Route path="expenses" element={<PlaceholderPage title="المصروفات" description="تتبع وتصنيف المصروفات" />} />
+              <Route path="expenses" element={<ExpensesPage />} />
               <Route path="reports" element={<ReportsPage />} />
-              <Route path="employees" element={<PlaceholderPage title="الموظفين" description="إدارة الموظفين والصلاحيات" />} />
+              <Route path="employees" element={<EmployeesPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="admin/users" element={<AdminUsersPage />} />
             </Route>
