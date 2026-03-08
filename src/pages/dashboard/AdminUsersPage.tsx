@@ -85,6 +85,22 @@ const AdminUsersPage = () => {
     );
   };
 
+  const sendResetToAll = async () => {
+    setSendingReset(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-reset-all");
+      if (error) throw error;
+      toast.success(`تم إرسال رابط تغيير كلمة المرور إلى ${data.sent} عضو ✅`);
+      if (data.errors?.length) {
+        toast.warning(`فشل الإرسال لـ ${data.errors.length} عضو`);
+      }
+    } catch (err: any) {
+      toast.error("خطأ في الإرسال: " + (err.message || "حاول مرة أخرى"));
+    } finally {
+      setSendingReset(false);
+    }
+  };
+
   const filtered = profiles.filter((p) => {
     const name = `${p.first_name || ""} ${p.last_name || ""}`.toLowerCase();
     return name.includes(search.toLowerCase());
