@@ -170,7 +170,7 @@ const InvoiceFormDialog = ({
             <div className="space-y-2">
               {form.items.map((item, index) => (
                 <div key={index} className="grid grid-cols-1 md:grid-cols-[180px_1fr_90px_120px_36px] gap-2">
-                  <Select value={item.product_id || "manual"} onValueChange={(value) => value !== "manual" && selectProduct(index, value)}>
+                  <Select value={item.product_id || "manual"} onValueChange={(value) => selectProduct(index, value)}>
                     <SelectTrigger>
                       <SelectValue placeholder="اختر منتج" />
                     </SelectTrigger>
