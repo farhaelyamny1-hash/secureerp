@@ -9,9 +9,7 @@ const MarketingFooter = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
-                <Shield className="w-5 h-5 text-primary-foreground" />
-              </div>
+              <img src={logo} alt="SecureERP" className="w-9 h-9 object-contain" />
               <span className="font-heading font-bold text-xl text-foreground">SecureERP</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -55,7 +53,15 @@ const MarketingFooter = () => {
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">© 2026 SecureERP. جميع الحقوق محفوظة.</p>
-          <p className="text-sm text-muted-foreground">من <span className="text-primary font-semibold">Yotaiweb</span></p>
+          <a
+            href="https://yotaiweb.lovable.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+          >
+            <Code2 className="w-3 h-3" />
+            <span>Yotaiweb.lovable.app</span>
+          </a>
         </div>
       </div>
     </footer>
