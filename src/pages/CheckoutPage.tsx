@@ -17,9 +17,9 @@ const PHONE_NUMBER = "01222350580";
 const WHATSAPP_NUMBER = "2001222350580";
 
 const plans = [
-  { slug: "starter", name: "المبتدئ", priceMonthly: 49, priceYearly: 470 },
-  { slug: "professional", name: "الاحترافي", priceMonthly: 99, priceYearly: 950 },
-  { slug: "enterprise", name: "المؤسسات", priceMonthly: 199, priceYearly: 1900 },
+  { slug: "starter", name: "عرض التشجيع", priceMonthly: 169, priceYearly: 1690 },
+  { slug: "professional", name: "الاحترافي", priceMonthly: 329, priceYearly: 3290 },
+  { slug: "enterprise", name: "المؤسسات", priceMonthly: 649, priceYearly: 6490 },
 ];
 
 type PaymentMethod = "vodafone_cash" | "instapay" | "whatsapp" | "web_form";
@@ -84,7 +84,7 @@ const CheckoutPage = () => {
 
   const openWhatsApp = () => {
     const message = encodeURIComponent(
-      `مرحباً، أريد الاشتراك في خطة ${selectedPlan.name} (${billingCycle === "monthly" ? "شهري" : "سنوي"}) بمبلغ $${price}.\nاسم المرسل: ${senderName || "—"}\nرقم الهاتف: ${senderPhone || "—"}\nرقم المعاملة: ${transactionRef || "—"}`
+      `مرحباً، أريد الاشتراك في خطة ${selectedPlan.name} (${billingCycle === "monthly" ? "شهري" : "سنوي"}) بمبلغ ${price} ج.م.\nاسم المرسل: ${senderName || "—"}\nرقم الهاتف: ${senderPhone || "—"}\nرقم المعاملة: ${transactionRef || "—"}`
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, "_blank");
   };
@@ -109,7 +109,7 @@ const CheckoutPage = () => {
           user_id: user.id,
           company_id: company.id,
           title: "طلب اشتراك جديد",
-          message: `خطة: ${selectedPlan.name} | ${billingCycle === "monthly" ? "شهري" : "سنوي"} | $${price} | الطريقة: ${selectedMethod} | المرسل: ${senderName} | الهاتف: ${senderPhone} | المرجع: ${transactionRef} | ملاحظات: ${notes}`,
+          message: `خطة: ${selectedPlan.name} | ${billingCycle === "monthly" ? "شهري" : "سنوي"} | ${price} ج.م | الطريقة: ${selectedMethod} | المرسل: ${senderName} | الهاتف: ${senderPhone} | المرجع: ${transactionRef} | ملاحظات: ${notes}`,
           type: "payment",
         });
       }
@@ -129,7 +129,7 @@ const CheckoutPage = () => {
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
               <Shield className="w-6 h-6 text-primary-foreground" />
             </div>
-            <span className="font-heading font-bold text-2xl text-foreground">SecureTech</span>
+            <span className="font-heading font-bold text-2xl text-foreground">SecureERP</span>
           </Link>
           <h1 className="font-heading font-bold text-3xl text-foreground">إتمام الاشتراك</h1>
         </div>
@@ -192,7 +192,7 @@ const CheckoutPage = () => {
             </div>
 
             <div className="text-left">
-              <p className="font-heading font-bold text-3xl text-foreground">${price}</p>
+              <p className="font-heading font-bold text-3xl text-foreground">{price} ج.م</p>
               <p className="text-xs text-muted-foreground">
                 {billingCycle === "monthly" ? "/ شهرياً" : "/ سنوياً"}
               </p>
@@ -281,7 +281,7 @@ const CheckoutPage = () => {
                   </div>
 
                   <div className="bg-muted rounded-lg p-4">
-                    <p className="text-sm text-muted-foreground mb-2">أرسل المبلغ <strong className="text-foreground">${price}</strong> إلى الرقم:</p>
+                    <p className="text-sm text-muted-foreground mb-2">أرسل المبلغ <strong className="text-foreground">{price} ج.م</strong> إلى الرقم:</p>
                     <div className="flex items-center gap-3">
                       <span className="font-heading font-bold text-2xl text-foreground tracking-wider" dir="ltr">
                         {PHONE_NUMBER}

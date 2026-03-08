@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 
 const plans = [
   {
-    name: "المبتدئ",
+    name: "عرض التشجيع",
     nameEn: "Starter",
     slug: "starter",
-    price: "٤٩",
+    price: "١٦٩",
     period: "شهرياً",
     desc: "مثالي للأعمال الصغيرة والمبتدئين",
     features: [
@@ -25,7 +25,7 @@ const plans = [
     name: "الاحترافي",
     nameEn: "Professional",
     slug: "professional",
-    price: "٩٩",
+    price: "٣٢٩",
     period: "شهرياً",
     desc: "للشركات المتوسطة التي تحتاج مميزات متقدمة",
     features: [
@@ -44,7 +44,7 @@ const plans = [
     name: "المؤسسات",
     nameEn: "Enterprise",
     slug: "enterprise",
-    price: "١٩٩",
+    price: "٦٤٩",
     period: "شهرياً",
     desc: "للشركات الكبيرة مع احتياجات متقدمة",
     features: [
@@ -106,8 +106,8 @@ const PricingSection = () => {
               </div>
 
               <div className="mb-6">
-                <span className="font-heading font-bold text-4xl text-foreground">${plan.price}</span>
-                <span className="text-muted-foreground text-sm mr-1">/ {plan.period}</span>
+                <span className="font-heading font-bold text-4xl text-foreground">{plan.price}</span>
+                <span className="text-muted-foreground text-sm mr-1">ج.م / {plan.period}</span>
               </div>
 
               <ul className="space-y-3 mb-8">

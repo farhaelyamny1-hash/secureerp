@@ -11,7 +11,7 @@ const MarketingFooter = () => {
               <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
                 <Shield className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="font-heading font-bold text-xl text-foreground">SecureTech</span>
+              <span className="font-heading font-bold text-xl text-foreground">SecureERP</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               منصة سحابية متكاملة لإدارة الأعمال. نساعدك على تنظيم عملك وزيادة إنتاجيتك.
@@ -53,7 +53,7 @@ const MarketingFooter = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">© 2026 SecureTech ERP. جميع الحقوق محفوظة.</p>
+          <p className="text-sm text-muted-foreground">© 2026 SecureERP. جميع الحقوق محفوظة.</p>
           <p className="text-sm text-muted-foreground">من <span className="text-primary font-semibold">Yotaiweb</span></p>
         </div>
       </div>

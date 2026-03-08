@@ -7,10 +7,10 @@ import {
 } from "recharts";
 
 const stats = [
-  { icon: TrendingUp, label: "إجمالي المبيعات", value: "٢٤,٥٠٠ ر.س", change: "+12%", up: true },
+  { icon: TrendingUp, label: "إجمالي المبيعات", value: "٢٤,٥٠٠ ج.م", change: "+12%", up: true },
   { icon: Users, label: "العملاء", value: "١,٢٣٤", change: "+8%", up: true },
   { icon: Receipt, label: "الفواتير", value: "٨٥٦", change: "+15%", up: true },
-  { icon: CreditCard, label: "المدفوعات المعلقة", value: "١٢,٣٠٠ ر.س", change: "-3%", up: false },
+  { icon: CreditCard, label: "المدفوعات المعلقة", value: "١٢,٣٠٠ ج.م", change: "-3%", up: false },
 ];
 
 const chartData = [
@@ -24,11 +24,11 @@ const chartData = [
 ];
 
 const recentInvoices = [
-  { id: "INV-001", client: "شركة النور", amount: "٣,٥٠٠ ر.س", status: "مدفوعة" },
-  { id: "INV-002", client: "مؤسسة الوفاء", amount: "٧,٢٠٠ ر.س", status: "معلقة" },
-  { id: "INV-003", client: "متجر السلام", amount: "١,٨٠٠ ر.س", status: "مدفوعة" },
-  { id: "INV-004", client: "شركة البناء", amount: "١٢,٠٠٠ ر.س", status: "متأخرة" },
-  { id: "INV-005", client: "مجموعة التقنية", amount: "٥,٤٠٠ ر.س", status: "مدفوعة" },
+  { id: "INV-001", client: "شركة النور", amount: "٣,٥٠٠ ج.م", status: "مدفوعة" },
+  { id: "INV-002", client: "مؤسسة الوفاء", amount: "٧,٢٠٠ ج.م", status: "معلقة" },
+  { id: "INV-003", client: "متجر السلام", amount: "١,٨٠٠ ج.م", status: "مدفوعة" },
+  { id: "INV-004", client: "شركة البناء", amount: "١٢,٠٠٠ ج.م", status: "متأخرة" },
+  { id: "INV-005", client: "مجموعة التقنية", amount: "٥,٤٠٠ ج.م", status: "مدفوعة" },
 ];
 
 const statusColors: Record<string, string> = {
@@ -42,7 +42,7 @@ const DashboardPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="font-heading font-bold text-2xl text-foreground">لوحة التحكم</h1>
-        <p className="text-sm text-muted-foreground">مرحباً بك في SecureTech ERP</p>
+        <p className="text-sm text-muted-foreground">مرحباً بك في SecureERP</p>
       </div>
 
       {/* Stats */}

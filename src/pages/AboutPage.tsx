@@ -10,7 +10,7 @@ const AboutPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="font-heading font-bold text-4xl text-foreground mb-4">عن SecureTech ERP</h1>
+          <h1 className="font-heading font-bold text-4xl text-foreground mb-4">عن SecureERP</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             نحن فريق شغوف بتطوير حلول تقنية تساعد الشركات على النمو والنجاح
           </p>

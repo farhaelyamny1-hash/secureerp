@@ -4,11 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Plus, Search, MoreHorizontal, AlertTriangle } from "lucide-react";
 
 const products = [
-  { id: 1, name: "لابتوب Dell XPS 15", category: "إلكترونيات", price: "٤,٥٠٠ ر.س", stock: 25, status: "متوفر" },
-  { id: 2, name: "طابعة HP LaserJet", category: "أجهزة مكتبية", price: "١,٢٠٠ ر.س", stock: 3, status: "منخفض" },
-  { id: 3, name: "شاشة Samsung 27\"", category: "إلكترونيات", price: "١,٨٠٠ ر.س", stock: 15, status: "متوفر" },
-  { id: 4, name: "كرسي مكتبي", category: "أثاث", price: "٨٥٠ ر.س", stock: 0, status: "نفذ" },
-  { id: 5, name: "لوحة مفاتيح Logitech", category: "ملحقات", price: "٣٥٠ ر.س", stock: 50, status: "متوفر" },
+  { id: 1, name: "لابتوب Dell XPS 15", category: "إلكترونيات", price: "٤,٥٠٠ ج.م", stock: 25, status: "متوفر" },
+  { id: 2, name: "طابعة HP LaserJet", category: "أجهزة مكتبية", price: "١,٢٠٠ ج.م", stock: 3, status: "منخفض" },
+  { id: 3, name: "شاشة Samsung 27\"", category: "إلكترونيات", price: "١,٨٠٠ ج.م", stock: 15, status: "متوفر" },
+  { id: 4, name: "كرسي مكتبي", category: "أثاث", price: "٨٥٠ ج.م", stock: 0, status: "نفذ" },
+  { id: 5, name: "لوحة مفاتيح Logitech", category: "ملحقات", price: "٣٥٠ ج.م", stock: 50, status: "متوفر" },
 ];
 
 const stockColors: Record<string, string> = {

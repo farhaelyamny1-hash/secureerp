@@ -5,7 +5,7 @@ const testimonials = [
   {
     name: "أحمد العلي",
     role: "مدير عام، شركة النور",
-    text: "SecureTech غيّر طريقة إدارتنا للأعمال بالكامل. أصبح كل شيء منظم وسريع. أنصح به بشدة.",
+    text: "SecureERP غيّر طريقة إدارتنا للأعمال بالكامل. أصبح كل شيء منظم وسريع. أنصح به بشدة.",
   },
   {
     name: "سارة الخالدي",
@@ -31,7 +31,7 @@ const TestimonialsSection = () => {
         >
           <span className="text-sm font-semibold text-secondary font-heading">آراء العملاء</span>
           <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mt-2 mb-4">
-            عملاؤنا يحبون SecureTech
+            عملاؤنا يحبون SecureERP
           </h2>
         </motion.div>
 

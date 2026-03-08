@@ -31,7 +31,7 @@ const HeroSection = () => {
             </h1>
 
             <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-lg" style={{ color: 'hsl(220, 10%, 70%)' }}>
-              SecureTech ERP يوفر لك كل ما تحتاجه لإدارة المبيعات، المخزون، الفواتير، العملاء والمزيد. ابدأ الآن وانقل عملك للمستوى التالي.
+              SecureERP يوفر لك كل ما تحتاجه لإدارة المبيعات، المخزون، الفواتير، العملاء والمزيد. ابدأ الآن وانقل عملك للمستوى التالي.
             </p>
 
             <div className="flex flex-wrap gap-4">

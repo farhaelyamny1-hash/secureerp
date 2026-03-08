@@ -4,10 +4,10 @@ import { Plus, Search, MoreHorizontal, Download, Printer } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const invoices = [
-  { id: "INV-001", date: "2026-03-01", client: "شركة النور", amount: "٣,٥٠٠ ر.س", tax: "٥٢٥ ر.س", total: "٤,٠٢٥ ر.س", status: "مدفوعة" },
-  { id: "INV-002", date: "2026-03-02", client: "مؤسسة الوفاء", amount: "٧,٢٠٠ ر.س", tax: "١,٠٨٠ ر.س", total: "٨,٢٨٠ ر.س", status: "معلقة" },
-  { id: "INV-003", date: "2026-03-03", client: "متجر السلام", amount: "١,٨٠٠ ر.س", tax: "٢٧٠ ر.س", total: "٢,٠٧٠ ر.س", status: "مدفوعة" },
-  { id: "INV-004", date: "2026-03-04", client: "شركة البناء", amount: "١٢,٠٠٠ ر.س", tax: "١,٨٠٠ ر.س", total: "١٣,٨٠٠ ر.س", status: "متأخرة" },
+  { id: "INV-001", date: "2026-03-01", client: "شركة النور", amount: "٣,٥٠٠ ج.م", tax: "٥٢٥ ج.م", total: "٤,٠٢٥ ج.م", status: "مدفوعة" },
+  { id: "INV-002", date: "2026-03-02", client: "مؤسسة الوفاء", amount: "٧,٢٠٠ ج.م", tax: "١,٠٨٠ ج.م", total: "٨,٢٨٠ ج.م", status: "معلقة" },
+  { id: "INV-003", date: "2026-03-03", client: "متجر السلام", amount: "١,٨٠٠ ج.م", tax: "٢٧٠ ج.م", total: "٢,٠٧٠ ج.م", status: "مدفوعة" },
+  { id: "INV-004", date: "2026-03-04", client: "شركة البناء", amount: "١٢,٠٠٠ ج.م", tax: "١,٨٠٠ ج.م", total: "١٣,٨٠٠ ج.م", status: "متأخرة" },
 ];
 
 const statusColors: Record<string, string> = {
