@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { Shield, ArrowRight } from "lucide-react";
+import { Shield, ArrowRight, MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -50,7 +50,7 @@ const ForgotPasswordPage = () => {
         </div>
 
         {sent ? (
-          <div className="bg-card border border-border rounded-2xl p-8 text-center space-y-4">
+          <div className="bg-card border border-border rounded-2xl p-8 text-center space-y-5">
             <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
               <Shield className="w-8 h-8 text-primary" />
             </div>
@@ -59,8 +59,25 @@ const ForgotPasswordPage = () => {
               تم إرسال رابط إعادة تعيين كلمة المرور إلى <strong className="text-foreground">{email}</strong>.
               يرجى التحقق من بريدك الإلكتروني.
             </p>
+
+            {/* WhatsApp CTA */}
+            <div className="bg-[hsl(142_70%_95%)] border border-[hsl(142_70%_80%)] rounded-xl p-5 space-y-3">
+              <p className="font-heading font-semibold text-foreground text-sm">
+                تحتاج مساعدة؟ برجاء التواصل معنا عبر الواتساب
+              </p>
+              <a
+                href="https://wa.me/201000000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-lg bg-[hsl(142_70%_45%)] hover:bg-[hsl(142_70%_38%)] text-white font-heading font-semibold text-sm transition-colors"
+              >
+                <MessageCircle className="w-5 h-5" />
+                تواصل عبر واتساب
+              </a>
+            </div>
+
             <Link to="/login">
-              <Button variant="outline" className="w-full gap-2 mt-2">
+              <Button variant="outline" className="w-full gap-2 mt-1">
                 <ArrowRight className="w-4 h-4" />
                 العودة لتسجيل الدخول
               </Button>
