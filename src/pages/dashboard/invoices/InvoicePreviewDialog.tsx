@@ -1,14 +1,11 @@
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
+  Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle,
 } from "@/components/ui/dialog";
 import { Printer } from "lucide-react";
 import { formatCurrencyAmount } from "@/lib/currency";
 import { Invoice, InvoiceItem } from "./types";
+import { CompanyProfile } from "@/lib/company";
 
 interface InvoicePreviewDialogProps {
   open: boolean;
@@ -16,18 +13,13 @@ interface InvoicePreviewDialogProps {
   items: InvoiceItem[];
   currencyCode: string;
   companyName: string;
+  companyProfile?: CompanyProfile | null;
   onOpenChange: (open: boolean) => void;
   onPrint: () => void;
 }
 
 const InvoicePreviewDialog = ({
-  open,
-  invoice,
-  items,
-  currencyCode,
-  companyName,
-  onOpenChange,
-  onPrint,
+  open, invoice, items, currencyCode, companyName, companyProfile, onOpenChange, onPrint,
 }: InvoicePreviewDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -39,15 +31,29 @@ const InvoicePreviewDialog = ({
         {invoice ? (
           <div className="space-y-4">
             <div className="flex justify-between items-start">
-              <div>
-                <h2 className="font-heading font-bold text-xl text-foreground">{companyName}</h2>
-                <p className="text-sm text-muted-foreground">فاتورة ضريبية</p>
+              <div className="flex items-center gap-3">
+                {companyProfile?.logo_url && (
+                  <img src={companyProfile.logo_url} alt="Logo" className="w-14 h-14 object-contain rounded-lg" />
+                )}
+                <div>
+                  <h2 className="font-heading font-bold text-xl text-foreground">{companyName}</h2>
+                  <p className="text-sm text-muted-foreground">فاتورة ضريبية</p>
+                  {companyProfile?.tax_number && <p className="text-xs text-muted-foreground">الرقم الضريبي: {companyProfile.tax_number}</p>}
+                </div>
               </div>
               <div className="text-left">
                 <p className="font-bold text-foreground">{invoice.invoice_number}</p>
                 <p className="text-sm text-muted-foreground">{invoice.issue_date}</p>
               </div>
             </div>
+
+            {companyProfile && (companyProfile.phone || companyProfile.email || companyProfile.address) && (
+              <div className="text-xs text-muted-foreground flex flex-wrap gap-3">
+                {companyProfile.phone && <span>📞 {companyProfile.phone}</span>}
+                {companyProfile.email && <span>✉ {companyProfile.email}</span>}
+                {companyProfile.address && <span>📍 {companyProfile.address}</span>}
+              </div>
+            )}
 
             {invoice.customers ? (
               <div className="bg-muted rounded-lg p-3">
@@ -80,22 +86,10 @@ const InvoicePreviewDialog = ({
             </div>
 
             <div className="bg-muted rounded-lg p-3 text-sm space-y-1">
-              <div className="flex justify-between">
-                <span>المجموع الفرعي:</span>
-                <span>{formatCurrencyAmount(invoice.subtotal, currencyCode)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>الضريبة:</span>
-                <span>{formatCurrencyAmount(invoice.tax_amount, currencyCode)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>الخصم:</span>
-                <span>{formatCurrencyAmount(invoice.discount, currencyCode)}</span>
-              </div>
-              <div className="flex justify-between font-bold border-t border-border pt-1">
-                <span>الإجمالي:</span>
-                <span>{formatCurrencyAmount(invoice.total, currencyCode)}</span>
-              </div>
+              <div className="flex justify-between"><span>المجموع الفرعي:</span><span>{formatCurrencyAmount(invoice.subtotal, currencyCode)}</span></div>
+              <div className="flex justify-between"><span>الضريبة:</span><span>{formatCurrencyAmount(invoice.tax_amount, currencyCode)}</span></div>
+              <div className="flex justify-between"><span>الخصم:</span><span>{formatCurrencyAmount(invoice.discount, currencyCode)}</span></div>
+              <div className="flex justify-between font-bold border-t border-border pt-1"><span>الإجمالي:</span><span>{formatCurrencyAmount(invoice.total, currencyCode)}</span></div>
             </div>
 
             {invoice.notes ? <p className="text-sm text-muted-foreground">{invoice.notes}</p> : null}
