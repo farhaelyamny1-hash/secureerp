@@ -73,6 +73,7 @@ const App = () => (
               <Route path="reports" element={<ReportsPage />} />
               <Route path="employees" element={<PlaceholderPage title="الموظفين" description="إدارة الموظفين والصلاحيات" />} />
               <Route path="settings" element={<SettingsPage />} />
+              <Route path="admin/users" element={<AdminUsersPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
