@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import { Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const RegisterPage = () => {
@@ -25,47 +24,18 @@ const RegisterPage = () => {
     const { error } = await signUp(email, password, {
       first_name: firstName,
       last_name: lastName,
+      company_name: companyName,
     });
+
+    setLoading(false);
 
     if (error) {
       toast.error("خطأ في التسجيل: " + error.message);
-      setLoading(false);
       return;
     }
 
-    // Create company after signup
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      // Get starter plan
-      const { data: plan } = await supabase
-        .from("plans")
-        .select("id")
-        .eq("slug", "starter")
-        .single();
-
-      const { data: company } = await supabase
-        .from("companies")
-        .insert({
-          owner_id: user.id,
-          name: companyName || `شركة ${firstName}`,
-          plan_id: plan?.id,
-        })
-        .select()
-        .single();
-
-      if (company && plan) {
-        await supabase.from("subscriptions").insert({
-          company_id: company.id,
-          plan_id: plan.id,
-          status: "trial",
-          billing_cycle: "monthly",
-        });
-      }
-    }
-
-    setLoading(false);
-    toast.success("تم إنشاء الحساب بنجاح!");
-    navigate("/dashboard");
+    toast.success("تم إنشاء الحساب! رجاءً فعّل بريدك الإلكتروني أولاً ثم سجّل الدخول.");
+    navigate("/login");
   };
 
   return (
