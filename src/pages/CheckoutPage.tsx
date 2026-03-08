@@ -13,7 +13,9 @@ import vodafoneCashImg from "@/assets/vodafone-cash.png";
 import instapayImg from "@/assets/instapay.png";
 import whatsappImg from "@/assets/whatsapp.png";
 
-const PHONE_NUMBER = "01222350580";
+const VODAFONE_NUMBER = "01222350580";
+const INSTAPAY_NUMBER = "01010891984";
+const INSTAPAY_NAME = "Hassan m r a";
 const WHATSAPP_NUMBER = "2001222350580";
 
 const plans = [
