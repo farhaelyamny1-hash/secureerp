@@ -119,7 +119,7 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              <Link to="/register">
+              <Link to={`/checkout?plan=${plan.slug}`}>
                 <Button
                   className={`w-full font-heading ${
                     plan.popular
