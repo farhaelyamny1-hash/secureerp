@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Shield } from "lucide-react";
+import { Code2 } from "lucide-react";
+import logo from "@/assets/securetech-logo.png";
 
 const MarketingFooter = () => {
   return (
