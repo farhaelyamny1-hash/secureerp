@@ -3,7 +3,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
-import { Shield } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import logo from "@/assets/securetech-logo.png";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -109,9 +112,7 @@ const LoginPage = () => {
       >
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-              <Shield className="w-6 h-6 text-primary-foreground" />
-            </div>
+            <img src={logo} alt="SecureERP" className="w-10 h-10 object-contain" />
             <span className="font-heading font-bold text-2xl text-foreground">SecureERP</span>
           </Link>
           <h1 className="font-heading font-bold text-2xl text-foreground">تسجيل الدخول</h1>

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/securetech-logo.png";
 
 const MarketingNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,9 +19,7 @@ const MarketingNav = () => {
     <nav className="fixed top-0 right-0 left-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
-            <Shield className="w-5 h-5 text-primary-foreground" />
-          </div>
+          <img src={logo} alt="SecureERP" className="w-9 h-9 object-contain" />
           <span className="font-heading font-bold text-xl text-foreground">SecureERP</span>
         </Link>
 
