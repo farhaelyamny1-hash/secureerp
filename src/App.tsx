@@ -23,6 +23,7 @@ import QuotationsPage from "./pages/dashboard/QuotationsPage";
 import PaymentsPage from "./pages/dashboard/PaymentsPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
+import AdminUsersPage from "./pages/dashboard/AdminUsersPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PendingApprovalPage from "./pages/PendingApprovalPage";
 import NotFound from "./pages/NotFound";
@@ -72,6 +73,7 @@ const App = () => (
               <Route path="reports" element={<ReportsPage />} />
               <Route path="employees" element={<PlaceholderPage title="الموظفين" description="إدارة الموظفين والصلاحيات" />} />
               <Route path="settings" element={<SettingsPage />} />
+              <Route path="admin/users" element={<AdminUsersPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

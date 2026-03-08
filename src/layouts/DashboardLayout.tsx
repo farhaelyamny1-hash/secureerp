@@ -20,6 +20,7 @@ const menuItems = [
   { icon: BarChart3, label: "التقارير", href: "/dashboard/reports" },
   { icon: UserCog, label: "الموظفين", href: "/dashboard/employees" },
   { icon: Settings, label: "الإعدادات", href: "/dashboard/settings" },
+  { icon: Shield, label: "إدارة الأعضاء", href: "/dashboard/admin/users" },
 ];
 
 const DashboardLayout = () => {
