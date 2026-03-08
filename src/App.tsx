@@ -19,6 +19,7 @@ import CustomersPage from "./pages/dashboard/CustomersPage";
 import ProductsPage from "./pages/dashboard/ProductsPage";
 import InvoicesPage from "./pages/dashboard/InvoicesPage";
 import PlaceholderPage from "./pages/dashboard/PlaceholderPage";
+import ReportsPage from "./pages/dashboard/ReportsPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
 
@@ -60,7 +61,7 @@ const App = () => (
               <Route path="invoices" element={<InvoicesPage />} />
               <Route path="payments" element={<PlaceholderPage title="المدفوعات" description="تسجيل ومتابعة المدفوعات" />} />
               <Route path="expenses" element={<PlaceholderPage title="المصروفات" description="تتبع وتصنيف المصروفات" />} />
-              <Route path="reports" element={<PlaceholderPage title="التقارير" description="تقارير المبيعات والأرباح والمصروفات" />} />
+              <Route path="reports" element={<ReportsPage />} />
               <Route path="employees" element={<PlaceholderPage title="الموظفين" description="إدارة الموظفين والصلاحيات" />} />
               <Route path="settings" element={<PlaceholderPage title="الإعدادات" description="إعدادات النظام والحساب" />} />
             </Route>
