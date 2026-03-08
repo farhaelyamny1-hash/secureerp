@@ -7,6 +7,7 @@ const plans = [
   {
     name: "المبتدئ",
     nameEn: "Starter",
+    slug: "starter",
     price: "٤٩",
     period: "شهرياً",
     desc: "مثالي للأعمال الصغيرة والمبتدئين",
@@ -23,6 +24,7 @@ const plans = [
   {
     name: "الاحترافي",
     nameEn: "Professional",
+    slug: "professional",
     price: "٩٩",
     period: "شهرياً",
     desc: "للشركات المتوسطة التي تحتاج مميزات متقدمة",
@@ -41,6 +43,7 @@ const plans = [
   {
     name: "المؤسسات",
     nameEn: "Enterprise",
+    slug: "enterprise",
     price: "١٩٩",
     period: "شهرياً",
     desc: "للشركات الكبيرة مع احتياجات متقدمة",
@@ -116,7 +119,7 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              <Link to="/register">
+              <Link to={`/checkout?plan=${plan.slug}`}>
                 <Button
                   className={`w-full font-heading ${
                     plan.popular

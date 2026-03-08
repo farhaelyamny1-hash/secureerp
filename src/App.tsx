@@ -19,6 +19,7 @@ import CustomersPage from "./pages/dashboard/CustomersPage";
 import ProductsPage from "./pages/dashboard/ProductsPage";
 import InvoicesPage from "./pages/dashboard/InvoicesPage";
 import PlaceholderPage from "./pages/dashboard/PlaceholderPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ const App = () => (
             {/* Auth pages */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
 
             {/* ERP Dashboard - Protected */}
             <Route path="/dashboard" element={
