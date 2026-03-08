@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Search, UserCheck, UserX, Shield, Users } from "lucide-react";
+import { Search, UserCheck, UserX, Shield, Users, KeyRound } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -29,6 +29,7 @@ const AdminUsersPage = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const [sendingReset, setSendingReset] = useState(false);
 
   useEffect(() => {
     checkAccess();
@@ -84,6 +85,22 @@ const AdminUsersPage = () => {
     );
   };
 
+  const sendResetToAll = async () => {
+    setSendingReset(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-reset-all");
+      if (error) throw error;
+      toast.success(`تم إرسال رابط تغيير كلمة المرور إلى ${data.sent} عضو ✅`);
+      if (data.errors?.length) {
+        toast.warning(`فشل الإرسال لـ ${data.errors.length} عضو`);
+      }
+    } catch (err: any) {
+      toast.error("خطأ في الإرسال: " + (err.message || "حاول مرة أخرى"));
+    } finally {
+      setSendingReset(false);
+    }
+  };
+
   const filtered = profiles.filter((p) => {
     const name = `${p.first_name || ""} ${p.last_name || ""}`.toLowerCase();
     return name.includes(search.toLowerCase());
@@ -113,9 +130,21 @@ const AdminUsersPage = () => {
             تفعيل ورفض حسابات الأعضاء المسجلين
           </p>
         </div>
-        <Badge variant="secondary" className="text-sm">
-          {profiles.filter((p) => !p.is_approved).length} في انتظار التفعيل
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge variant="secondary" className="text-sm">
+            {profiles.filter((p) => !p.is_approved).length} في انتظار التفعيل
+          </Badge>
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={sendingReset}
+            onClick={sendResetToAll}
+            className="gap-1.5"
+          >
+            <KeyRound className="w-4 h-4" />
+            {sendingReset ? "جاري الإرسال..." : "إرسال تغيير كلمة المرور للجميع"}
+          </Button>
+        </div>
       </div>
 
       <div className="relative max-w-sm">
