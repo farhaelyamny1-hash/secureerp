@@ -3,20 +3,9 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Upload, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { CURRENCY_OPTIONS } from "@/lib/currency";
@@ -26,7 +15,9 @@ const SettingsPage = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [companyId, setCompanyId] = useState<string | null>(null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -46,8 +37,8 @@ const SettingsPage = () => {
           toast.error("لا توجد شركة مرتبطة بحسابك");
           return;
         }
-
         setCompanyId(company.id);
+        setLogoUrl(company.logo_url);
         setForm({
           name: company.name || "",
           email: company.email || "",
@@ -62,9 +53,59 @@ const SettingsPage = () => {
         setLoading(false);
       }
     };
-
     fetchCompany();
   }, [user]);
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !companyId) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("يرجى اختيار ملف صورة");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("حجم الصورة يجب ألا يتجاوز 2 ميجابايت");
+      return;
+    }
+
+    setUploading(true);
+    const ext = file.name.split(".").pop();
+    const path = `${companyId}/logo.${ext}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("company-logos")
+      .upload(path, file, { upsert: true });
+
+    if (uploadError) {
+      toast.error("تعذر رفع الشعار");
+      setUploading(false);
+      return;
+    }
+
+    const { data: publicUrlData } = supabase.storage.from("company-logos").getPublicUrl(path);
+    const newUrl = publicUrlData.publicUrl + "?t=" + Date.now();
+
+    const { error: updateError } = await supabase
+      .from("companies")
+      .update({ logo_url: publicUrlData.publicUrl })
+      .eq("id", companyId);
+
+    setUploading(false);
+    if (updateError) {
+      toast.error("تعذر حفظ رابط الشعار");
+      return;
+    }
+    setLogoUrl(newUrl);
+    toast.success("تم رفع الشعار بنجاح");
+  };
+
+  const handleRemoveLogo = async () => {
+    if (!companyId) return;
+    await supabase.from("companies").update({ logo_url: null }).eq("id", companyId);
+    setLogoUrl(null);
+    toast.success("تم إزالة الشعار");
+  };
 
   const handleSave = async () => {
     if (!companyId) return;
@@ -72,7 +113,6 @@ const SettingsPage = () => {
       toast.error("اسم الشركة مطلوب");
       return;
     }
-
     setSaving(true);
     const { error } = await supabase
       .from("companies")
@@ -87,12 +127,10 @@ const SettingsPage = () => {
       .eq("id", companyId);
 
     setSaving(false);
-
     if (error) {
       toast.error("تعذر حفظ الإعدادات");
       return;
     }
-
     toast.success("تم حفظ إعدادات الشركة");
   };
 
@@ -104,8 +142,41 @@ const SettingsPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="font-heading font-bold text-2xl text-foreground">إعدادات الشركة</h1>
-        <p className="text-sm text-muted-foreground">حدّث بيانات الشركة والعملة الافتراضية للنظام</p>
+        <p className="text-sm text-muted-foreground">حدّث بيانات الشركة والعملة والشعار</p>
       </div>
+
+      {/* Logo Section */}
+      <Card className="border-border">
+        <CardHeader>
+          <CardTitle className="font-heading">شعار الشركة</CardTitle>
+          <CardDescription>يظهر الشعار في الفواتير والتقارير المطبوعة (الحد الأقصى 2 ميجابايت)</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-4">
+            {logoUrl ? (
+              <div className="relative">
+                <img src={logoUrl} alt="شعار الشركة" className="w-24 h-24 object-contain rounded-lg border border-border bg-muted p-2" />
+                <button
+                  onClick={handleRemoveLogo}
+                  className="absolute -top-2 -left-2 w-6 h-6 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center text-xs hover:opacity-80"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ) : (
+              <div className="w-24 h-24 rounded-lg border-2 border-dashed border-border flex items-center justify-center text-muted-foreground">
+                <Upload className="w-8 h-8" />
+              </div>
+            )}
+            <label className="cursor-pointer">
+              <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} disabled={uploading} />
+              <Button variant="outline" asChild disabled={uploading}>
+                <span>{uploading ? "جاري الرفع..." : "رفع شعار"}</span>
+              </Button>
+            </label>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card className="border-border">
         <CardHeader>
@@ -114,53 +185,22 @@ const SettingsPage = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              placeholder="اسم الشركة"
-              value={form.name}
-              onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
-            />
-            <Select
-              value={form.currency}
-              onValueChange={(value) => setForm((prev) => ({ ...prev, currency: value }))}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="اختر العملة" />
-              </SelectTrigger>
+            <Input placeholder="اسم الشركة" value={form.name} onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))} />
+            <Select value={form.currency} onValueChange={(v) => setForm((p) => ({ ...p, currency: v }))}>
+              <SelectTrigger><SelectValue placeholder="اختر العملة" /></SelectTrigger>
               <SelectContent>
-                {CURRENCY_OPTIONS.map((option) => (
-                  <SelectItem key={option.code} value={option.code}>
-                    {option.label}
-                  </SelectItem>
+                {CURRENCY_OPTIONS.map((o) => (
+                  <SelectItem key={o.code} value={o.code}>{o.label}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              placeholder="البريد الإلكتروني"
-              value={form.email}
-              onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
-            />
-            <Input
-              placeholder="رقم الهاتف"
-              value={form.phone}
-              onChange={(event) => setForm((prev) => ({ ...prev, phone: event.target.value }))}
-            />
+            <Input placeholder="البريد الإلكتروني" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} />
+            <Input placeholder="رقم الهاتف" value={form.phone} onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))} />
           </div>
-
-          <Input
-            placeholder="الرقم الضريبي"
-            value={form.tax_number}
-            onChange={(event) => setForm((prev) => ({ ...prev, tax_number: event.target.value }))}
-          />
-
-          <Textarea
-            placeholder="العنوان"
-            value={form.address}
-            onChange={(event) => setForm((prev) => ({ ...prev, address: event.target.value }))}
-          />
-
+          <Input placeholder="الرقم الضريبي" value={form.tax_number} onChange={(e) => setForm((p) => ({ ...p, tax_number: e.target.value }))} />
+          <Textarea placeholder="العنوان" value={form.address} onChange={(e) => setForm((p) => ({ ...p, address: e.target.value }))} />
           <Button onClick={handleSave} disabled={saving} className="gradient-primary text-primary-foreground">
             {saving ? "جاري الحفظ..." : "حفظ التعديلات"}
           </Button>

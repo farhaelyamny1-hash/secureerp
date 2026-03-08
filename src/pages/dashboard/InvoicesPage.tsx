@@ -13,7 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { formatCurrencyAmount } from "@/lib/currency";
-import { getCompanyProfile } from "@/lib/company";
+import { getCompanyProfile, CompanyProfile } from "@/lib/company";
 import InvoiceFormDialog from "./invoices/InvoiceFormDialog";
 import InvoicePreviewDialog from "./invoices/InvoicePreviewDialog";
 import {
@@ -47,6 +47,7 @@ const InvoicesPage = () => {
   const [companyId, setCompanyId] = useState<string | null>(null);
   const [companyName, setCompanyName] = useState("SecureERP");
   const [currencyCode, setCurrencyCode] = useState("EGP");
+  const [companyProfile, setCompanyProfile] = useState<CompanyProfile | null>(null);
 
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -88,6 +89,7 @@ const InvoicesPage = () => {
       setCompanyId(company.id);
       setCompanyName(company.name || "SecureERP");
       setCurrencyCode(company.currency || "EGP");
+      setCompanyProfile(company);
 
       const [invoiceRes, customerRes, productRes] = await Promise.all([
         supabase
@@ -131,6 +133,14 @@ const InvoicesPage = () => {
       )
       .join("");
 
+    const logoHtml = companyProfile?.logo_url ? `<img src="${escapeHtml(companyProfile.logo_url)}" style="width:60px;height:60px;object-fit:contain;margin-left:12px;" />` : "";
+    const contactParts = [
+      companyProfile?.phone ? `📞 ${escapeHtml(companyProfile.phone)}` : "",
+      companyProfile?.email ? `✉ ${escapeHtml(companyProfile.email)}` : "",
+      companyProfile?.address ? `📍 ${escapeHtml(companyProfile.address)}` : "",
+    ].filter(Boolean).join(" &nbsp;|&nbsp; ");
+    const taxLine = companyProfile?.tax_number ? `<div class="meta">الرقم الضريبي: ${escapeHtml(companyProfile.tax_number)}</div>` : "";
+
     return `
       <html dir="rtl">
       <head>
@@ -139,7 +149,9 @@ const InvoicesPage = () => {
         <style>
           body { font-family: 'Segoe UI', Tahoma, sans-serif; padding: 32px; direction: rtl; color: #111827; }
           .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+          .company-info { display: flex; align-items: center; }
           .meta { color: #6b7280; font-size: 14px; }
+          .contact { color: #6b7280; font-size: 12px; margin-bottom: 16px; }
           .box { background: #f9fafb; border-radius: 10px; padding: 12px; margin-bottom: 16px; }
           table { width: 100%; border-collapse: collapse; margin: 16px 0; }
           th, td { border: 1px solid #e5e7eb; padding: 10px; text-align: right; }
@@ -151,9 +163,13 @@ const InvoicesPage = () => {
       </head>
       <body>
         <div class="header">
-          <div>
-            <h2>${escapeHtml(companyName)}</h2>
-            <div class="meta">فاتورة ضريبية</div>
+          <div class="company-info">
+            ${logoHtml}
+            <div>
+              <h2>${escapeHtml(companyName)}</h2>
+              <div class="meta">فاتورة ضريبية</div>
+              ${taxLine}
+            </div>
           </div>
           <div>
             <div><strong>${escapeHtml(invoice.invoice_number)}</strong></div>
@@ -161,6 +177,7 @@ const InvoicesPage = () => {
             <div class="meta">الاستحقاق: ${escapeHtml(invoice.due_date || "—")}</div>
           </div>
         </div>
+        ${contactParts ? `<div class="contact">${contactParts}</div>` : ""}
 
         ${invoice.customers?.name ? `<div class="box"><strong>العميل:</strong> ${escapeHtml(invoice.customers.name)}</div>` : ""}
 
@@ -446,6 +463,7 @@ const InvoicesPage = () => {
         items={previewItems}
         currencyCode={currencyCode}
         companyName={companyName}
+        companyProfile={companyProfile}
         onOpenChange={(open) => {
           if (!open) {
             setPreviewInvoice(null);

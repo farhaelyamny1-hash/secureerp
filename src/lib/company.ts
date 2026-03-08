@@ -8,6 +8,7 @@ export interface CompanyProfile {
   email: string | null;
   address: string | null;
   tax_number: string | null;
+  logo_url: string | null;
 }
 
 export const getUserCompanyId = async (userId: string) => {
@@ -22,7 +23,7 @@ export const getCompanyProfile = async (userId: string): Promise<CompanyProfile 
 
   const { data, error } = await supabase
     .from("companies")
-    .select("id, name, currency, phone, email, address, tax_number")
+    .select("id, name, currency, phone, email, address, tax_number, logo_url")
     .eq("id", companyId)
     .maybeSingle();
 
