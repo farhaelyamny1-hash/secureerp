@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, Package, Warehouse, FileText, Receipt,
   CreditCard, ShoppingCart, BarChart3, UserCog, Bell, Search,
   Shield, ChevronLeft, Menu, LogOut, Settings
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "لوحة التحكم", href: "/dashboard" },
