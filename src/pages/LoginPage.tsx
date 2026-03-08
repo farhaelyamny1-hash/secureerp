@@ -144,6 +144,9 @@ const LoginPage = () => {
               required
             />
           </div>
+          <div className="text-left">
+            <Link to="/forgot-password" className="text-xs text-primary hover:underline">نسيت كلمة المرور؟</Link>
+          </div>
           <Button
             type="submit"
             disabled={loading}
