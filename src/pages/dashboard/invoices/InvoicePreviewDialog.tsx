@@ -37,7 +37,7 @@ const InvoicePreviewDialog = ({
                 )}
                 <div>
                   <h2 className="font-heading font-bold text-xl text-foreground">{companyName}</h2>
-                  <p className="text-sm text-muted-foreground">فاتورة ضريبية</p>
+                  <p className="text-sm text-muted-foreground">فاتورة بيع</p>
                   {companyProfile?.tax_number && <p className="text-xs text-muted-foreground">الرقم الضريبي: {companyProfile.tax_number}</p>}
                 </div>
               </div>
