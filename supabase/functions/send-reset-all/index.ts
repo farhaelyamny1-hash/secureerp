@@ -12,7 +12,6 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Verify the caller is a super_admin
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
@@ -25,7 +24,7 @@ Deno.serve(async (req) => {
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const anonKey = Deno.env.get("SUPABASE_PUBLISHABLE_KEY")!;
 
-    // Verify caller is super_admin using their token
+    // Verify caller is super_admin
     const callerClient = createClient(supabaseUrl, anonKey, {
       global: { headers: { Authorization: authHeader } },
     });
@@ -45,7 +44,7 @@ Deno.serve(async (req) => {
     });
 
     if (!roleCheck) {
-      return new Response(JSON.stringify({ error: "Forbidden" }), {
+      return new Response(JSON.stringify({ error: "Forbidden - super_admin only" }), {
         status: 403,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -56,21 +55,20 @@ Deno.serve(async (req) => {
       perPage: 1000,
     });
 
-    if (listError) {
-      throw listError;
-    }
+    if (listError) throw listError;
 
     const redirectTo = "https://secureerp.lovable.app/reset-password";
     let sent = 0;
     const errors: string[] = [];
 
+    // Use a separate anon-level client to trigger actual email sending
+    const emailClient = createClient(supabaseUrl, anonKey);
+
     for (const user of users) {
       if (!user.email) continue;
 
-      const { error } = await adminClient.auth.admin.generateLink({
-        type: "recovery",
-        email: user.email,
-        options: { redirectTo },
+      const { error } = await emailClient.auth.resetPasswordForEmail(user.email, {
+        redirectTo,
       });
 
       if (error) {
@@ -81,7 +79,7 @@ Deno.serve(async (req) => {
     }
 
     return new Response(
-      JSON.stringify({ sent, total: users.length, errors }),
+      JSON.stringify({ success: true, sent, total: users.length, errors }),
       {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
