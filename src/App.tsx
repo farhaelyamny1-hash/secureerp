@@ -24,6 +24,7 @@ import PaymentsPage from "./pages/dashboard/PaymentsPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import PendingApprovalPage from "./pages/PendingApprovalPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => (
             {/* Auth pages */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/pending-approval" element={<PendingApprovalPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
 
             {/* ERP Dashboard - Protected */}

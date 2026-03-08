@@ -76,6 +76,24 @@ const LoginPage = () => {
       return;
     }
 
+    // Check if user is approved
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("is_approved")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (!profile?.is_approved) {
+        await supabase.auth.signOut();
+        setLoading(false);
+        toast.error("حسابك لم يتم تفعيله بعد. يرجى التواصل معنا عبر الواتساب لتفعيل حسابك.");
+        navigate("/pending-approval");
+        return;
+      }
+    }
+
     await ensureCompanySetup();
     setLoading(false);
     toast.success("تم تسجيل الدخول بنجاح");

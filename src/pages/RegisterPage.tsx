@@ -34,8 +34,8 @@ const RegisterPage = () => {
       return;
     }
 
-    toast.success("تم إنشاء الحساب! رجاءً فعّل بريدك الإلكتروني أولاً ثم سجّل الدخول.");
-    navigate("/login");
+    toast.success("تم إنشاء الحساب! يرجى إرسال رسالة عبر الواتساب لتفعيل حسابك.");
+    navigate("/pending-approval");
   };
 
   return (
