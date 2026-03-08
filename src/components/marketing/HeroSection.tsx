@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Play, Shield, Zap, BarChart3 } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ArrowLeft, Play, Shield, Zap, BarChart3, X } from "lucide-react";
+import logo from "@/assets/securetech-logo.png";
 
 const HeroSection = () => {
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden">
       {/* Decorative elements */}
@@ -41,7 +46,13 @@ const HeroSection = () => {
                   <ArrowLeft className="w-4 h-4 mr-2" />
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="h-12 text-base border-primary/30 font-heading" style={{ color: 'hsl(0, 0%, 90%)' }}>
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 text-base border-primary/30 font-heading"
+                style={{ color: 'hsl(0, 0%, 90%)' }}
+                onClick={() => setVideoOpen(true)}
+              >
                 <Play className="w-4 h-4 ml-2" />
                 شاهد العرض التوضيحي
               </Button>
@@ -67,9 +78,14 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="hidden lg:block"
           >
-            <div className="relative">
-              <div className="bg-card/10 backdrop-blur-md border border-primary/10 rounded-2xl p-6 shadow-2xl">
-                {/* Mock Dashboard */}
+            <div className="relative cursor-pointer group" onClick={() => setVideoOpen(true)}>
+              <div className="bg-card/10 backdrop-blur-md border border-primary/10 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                {/* Logo watermark */}
+                <div className="absolute top-4 left-4 z-10">
+                  <img src={logo} alt="SecureTech" className="w-12 h-12 object-contain opacity-80" />
+                </div>
+
+                {/* Mock Dashboard Preview */}
                 <div className="bg-card rounded-xl p-4 space-y-4">
                   <div className="flex items-center justify-between mb-4">
                     <span className="font-heading font-semibold text-foreground text-sm">لوحة التحكم</span>
@@ -93,12 +109,15 @@ const HeroSection = () => {
                   </div>
                   <div className="h-32 bg-muted rounded-lg flex items-end p-3 gap-1">
                     {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 88].map((h, i) => (
-                      <div
-                        key={i}
-                        className="flex-1 gradient-primary rounded-t-sm"
-                        style={{ height: `${h}%` }}
-                      />
+                      <div key={i} className="flex-1 gradient-primary rounded-t-sm" style={{ height: `${h}%` }} />
                     ))}
+                  </div>
+                </div>
+
+                {/* Play overlay */}
+                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors rounded-2xl flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                    <Play className="w-7 h-7 text-primary-foreground mr-[-2px]" fill="currentColor" />
                   </div>
                 </div>
               </div>
@@ -106,6 +125,25 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Video Dialog */}
+      <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+        <DialogContent className="sm:max-w-4xl p-0 bg-black border-none overflow-hidden">
+          <div className="relative w-full aspect-video">
+            <video
+              src="/demo-video.mp4"
+              controls
+              autoPlay
+              className="w-full h-full object-contain"
+              poster=""
+            />
+            {/* Logo overlay on video */}
+            <div className="absolute top-4 right-4 pointer-events-none">
+              <img src={logo} alt="SecureTech" className="w-10 h-10 object-contain opacity-70" />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
