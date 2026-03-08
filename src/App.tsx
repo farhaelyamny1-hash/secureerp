@@ -44,6 +44,7 @@ const App = () => (
             {/* Auth pages */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
 
             {/* ERP Dashboard - Protected */}
             <Route path="/dashboard" element={
