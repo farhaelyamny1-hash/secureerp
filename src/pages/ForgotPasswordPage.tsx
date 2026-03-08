@@ -65,15 +65,26 @@ const ForgotPasswordPage = () => {
               <p className="font-heading font-semibold text-foreground text-sm">
                 تحتاج مساعدة؟ برجاء التواصل معنا عبر الواتساب
               </p>
-              <a
-                href="https://wa.me/201000000000"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-lg bg-[hsl(142_70%_45%)] hover:bg-[hsl(142_70%_38%)] text-white font-heading font-semibold text-sm transition-colors"
-              >
-                <MessageCircle className="w-5 h-5" />
-                تواصل عبر واتساب
-              </a>
+              <div className="flex flex-col gap-2">
+                <a
+                  href="https://wa.me/201010891984"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-lg bg-[hsl(142_70%_45%)] hover:bg-[hsl(142_70%_38%)] text-white font-heading font-semibold text-sm transition-colors"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  تواصل عبر واتساب
+                </a>
+                <a
+                  href="https://wa.me/201222350580"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 w-full h-10 rounded-lg border border-[hsl(142_70%_45%)] text-[hsl(142_70%_35%)] hover:bg-[hsl(142_70%_95%)] font-heading font-medium text-sm transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  رقم احتياطي
+                </a>
+              </div>
             </div>
 
             <Link to="/login">
