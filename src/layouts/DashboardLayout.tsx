@@ -27,9 +27,22 @@ const menuItems = [
 const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { signOut, user } = useAuth();
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      if (!user) return;
+      const { data } = await supabase.rpc("has_role", {
+        _user_id: user.id,
+        _role: "super_admin",
+      });
+      setIsSuperAdmin(!!data);
+    };
+    checkAdmin();
+  }, [user]);
 
   return (
     <div className="min-h-screen bg-background flex">
