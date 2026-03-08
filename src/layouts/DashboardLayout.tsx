@@ -3,11 +3,13 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, Package, Warehouse, FileText, Receipt,
   CreditCard, ShoppingCart, BarChart3, UserCog, Bell, Search,
-  Shield, ChevronLeft, Menu, LogOut, Settings
+  Shield, ChevronLeft, Menu, LogOut, Settings, X
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
+import logo from "@/assets/securetech-logo.png";
+import NotificationsPopover from "@/components/NotificationsPopover";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "لوحة التحكم", href: "/dashboard" },
@@ -56,12 +58,11 @@ const DashboardLayout = () => {
         <div className="h-16 flex items-center justify-between px-4 border-b border-sidebar-border">
           {!collapsed && (
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
-                <Shield className="w-4 h-4 text-primary-foreground" />
-              </div>
+              <img src={logo} alt="SecureERP" className="w-8 h-8 object-contain" />
               <span className="font-heading font-bold text-sidebar-foreground">SecureERP</span>
             </div>
           )}
+          {collapsed && <img src={logo} alt="SecureERP" className="w-8 h-8 object-contain mx-auto" />}
           <button
             onClick={() => setCollapsed(!collapsed)}
             className="hidden lg:flex w-7 h-7 rounded-md bg-sidebar-accent items-center justify-center text-sidebar-foreground"
@@ -126,10 +127,7 @@ const DashboardLayout = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="relative w-9 h-9 rounded-lg bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-              <Bell className="w-5 h-5" />
-              <span className="absolute -top-0.5 -left-0.5 w-4 h-4 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center">3</span>
-            </button>
+            <NotificationsPopover />
             <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center text-primary-foreground font-heading font-bold text-sm">
               أ
             </div>
