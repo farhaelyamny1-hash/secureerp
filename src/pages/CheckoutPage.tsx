@@ -32,14 +32,14 @@ const paymentMethods: { id: PaymentMethod; label: string; icon: string | null; d
     id: "vodafone_cash",
     label: "Vodafone Cash",
     icon: vodafoneCashImg,
-    desc: `أرسل المبلغ إلى رقم ${PHONE_NUMBER}`,
+    desc: `أرسل المبلغ إلى رقم ${VODAFONE_NUMBER}`,
     color: "border-destructive/40 hover:border-destructive bg-destructive/5",
   },
   {
     id: "instapay",
     label: "InstaPay",
     icon: instapayImg,
-    desc: `حوّل المبلغ عبر InstaPay إلى ${PHONE_NUMBER}`,
+    desc: `حوّل المبلغ عبر InstaPay إلى ${INSTAPAY_NUMBER} باسم ${INSTAPAY_NAME}`,
     color: "border-primary/40 hover:border-primary bg-primary/5",
   },
   {
@@ -79,8 +79,8 @@ const CheckoutPage = () => {
 
   const price = billingCycle === "monthly" ? selectedPlan.priceMonthly : selectedPlan.priceYearly;
 
-  const copyNumber = () => {
-    navigator.clipboard.writeText(PHONE_NUMBER);
+  const copyNumber = (num?: string) => {
+    navigator.clipboard.writeText(num || VODAFONE_NUMBER);
     toast.success("تم نسخ الرقم");
   };
 
@@ -283,19 +283,29 @@ const CheckoutPage = () => {
                   </div>
 
                   <div className="bg-muted rounded-lg p-4">
-                    <p className="text-sm text-muted-foreground mb-2">أرسل المبلغ <strong className="text-foreground">{price} ج.م</strong> إلى الرقم:</p>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      {selectedMethod === "instapay"
+                        ? <>حوّل المبلغ <strong className="text-foreground">{price} ج.م</strong> عبر InstaPay إلى:</>
+                        : <>أرسل المبلغ <strong className="text-foreground">{price} ج.م</strong> إلى الرقم:</>
+                      }
+                    </p>
                     <div className="flex items-center gap-3">
                       <span className="font-heading font-bold text-2xl text-foreground tracking-wider" dir="ltr">
-                        {PHONE_NUMBER}
+                        {selectedMethod === "instapay" ? INSTAPAY_NUMBER : VODAFONE_NUMBER}
                       </span>
                       <button
-                        onClick={copyNumber}
+                        onClick={() => copyNumber(selectedMethod === "instapay" ? INSTAPAY_NUMBER : VODAFONE_NUMBER)}
                         className="w-9 h-9 rounded-lg bg-card border border-border flex items-center justify-center hover:bg-muted transition-colors"
                         title="نسخ الرقم"
                       >
                         <Copy className="w-4 h-4 text-muted-foreground" />
                       </button>
                     </div>
+                    {selectedMethod === "instapay" && (
+                      <p className="text-sm text-muted-foreground mt-2">
+                        باسم: <strong className="text-foreground">{INSTAPAY_NAME}</strong>
+                      </p>
+                    )}
                   </div>
 
                   <p className="text-sm text-muted-foreground">
