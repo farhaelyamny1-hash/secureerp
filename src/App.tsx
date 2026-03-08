@@ -20,6 +20,7 @@ import ProductsPage from "./pages/dashboard/ProductsPage";
 import InvoicesPage from "./pages/dashboard/InvoicesPage";
 import PlaceholderPage from "./pages/dashboard/PlaceholderPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
+import SettingsPage from "./pages/dashboard/SettingsPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
 
@@ -48,11 +49,14 @@ const App = () => (
             <Route path="/checkout" element={<CheckoutPage />} />
 
             {/* ERP Dashboard - Protected */}
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }>
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<DashboardPage />} />
               <Route path="customers" element={<CustomersPage />} />
               <Route path="products" element={<ProductsPage />} />
@@ -63,7 +67,7 @@ const App = () => (
               <Route path="expenses" element={<PlaceholderPage title="المصروفات" description="تتبع وتصنيف المصروفات" />} />
               <Route path="reports" element={<ReportsPage />} />
               <Route path="employees" element={<PlaceholderPage title="الموظفين" description="إدارة الموظفين والصلاحيات" />} />
-              <Route path="settings" element={<PlaceholderPage title="الإعدادات" description="إعدادات النظام والحساب" />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
