@@ -167,7 +167,7 @@ const InvoicesPage = () => {
             ${logoHtml}
             <div>
               <h2>${escapeHtml(companyName)}</h2>
-              <div class="meta">فاتورة ضريبية</div>
+              
               ${taxLine}
             </div>
           </div>
