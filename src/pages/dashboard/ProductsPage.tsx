@@ -115,6 +115,7 @@ const ProductsPage = () => {
       cost: Number(form.cost) || 0,
       stock_quantity: Number(form.stock_quantity) || 0,
       sku: form.sku || null,
+      barcode: form.barcode || null,
       unit: form.unit || "piece",
       low_stock_threshold: Number(form.low_stock_threshold) || 5,
     };
