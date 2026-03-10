@@ -101,6 +101,13 @@ const InvoicePreviewDialog = ({
               </>
             )}
 
+            {/* Barcode */}
+            {invoice.invoice_number && (
+              <div className="flex justify-center pt-1">
+                <BarcodeDisplay value={invoice.invoice_number} height={30} width={1} fontSize={8} />
+              </div>
+            )}
+
             <div className="border-t border-dashed border-border" />
             <p className="text-center text-[9px] text-muted-foreground">شكراً لتعاملكم معنا</p>
           </div>
