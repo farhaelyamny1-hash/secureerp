@@ -15,6 +15,7 @@ interface InvoicePreviewDialogProps {
   currencyCode: string;
   companyName: string;
   companyProfile?: CompanyProfile | null;
+  websiteUrl?: string;
   onOpenChange: (open: boolean) => void;
   onPrint: () => void;
 }
