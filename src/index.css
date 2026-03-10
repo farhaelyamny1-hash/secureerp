@@ -131,3 +131,39 @@
     background-clip: text;
   }
 }
+
+/* POS Thermal Printer Styles (80mm width) */
+@media print {
+  @page {
+    size: 80mm auto;
+    margin: 2mm;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #pos-invoice-content,
+  #pos-invoice-content * {
+    visibility: visible;
+  }
+
+  #pos-invoice-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 72mm;
+    max-width: 72mm;
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+
+  #pos-invoice-content table {
+    font-size: 8px !important;
+  }
+
+  #pos-invoice-content img {
+    max-width: 20mm !important;
+    max-height: 20mm !important;
+  }
+}
