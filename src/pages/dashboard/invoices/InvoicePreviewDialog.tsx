@@ -23,82 +23,90 @@ const InvoicePreviewDialog = ({
 }: InvoicePreviewDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-sm max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="font-heading">معاينة الفاتورة</DialogTitle>
+          <DialogTitle className="font-heading text-sm">معاينة الفاتورة</DialogTitle>
         </DialogHeader>
 
         {invoice ? (
-          <div className="space-y-4">
-            <div className="flex justify-between items-start">
-              <div className="flex items-center gap-3">
-                {companyProfile?.logo_url && (
-                  <img src={companyProfile.logo_url} alt="Logo" className="w-14 h-14 object-contain rounded-lg" />
-                )}
-                <div>
-                  <h2 className="font-heading font-bold text-xl text-foreground">{companyName}</h2>
-                  
-                  {companyProfile?.tax_number && <p className="text-xs text-muted-foreground">الرقم الضريبي: {companyProfile.tax_number}</p>}
-                </div>
-              </div>
-              <div className="text-left">
-                <p className="font-bold text-foreground">{invoice.invoice_number}</p>
-                <p className="text-sm text-muted-foreground">{invoice.issue_date}</p>
-              </div>
+          <div id="pos-invoice-content" className="space-y-2 text-[11px] leading-tight" style={{ maxWidth: '280px', margin: '0 auto' }}>
+            {/* Header */}
+            <div className="text-center space-y-0.5">
+              {companyProfile?.logo_url && (
+                <img src={companyProfile.logo_url} alt="Logo" className="w-8 h-8 object-contain rounded mx-auto" />
+              )}
+              <p className="font-bold text-xs text-foreground">{companyName}</p>
+              {companyProfile?.tax_number && <p className="text-[9px] text-muted-foreground">ض: {companyProfile.tax_number}</p>}
+              {companyProfile?.phone && <p className="text-[9px] text-muted-foreground">{companyProfile.phone}</p>}
+              {companyProfile?.address && <p className="text-[9px] text-muted-foreground">{companyProfile.address}</p>}
             </div>
 
-            {companyProfile && (companyProfile.phone || companyProfile.email || companyProfile.address) && (
-              <div className="text-xs text-muted-foreground flex flex-wrap gap-3">
-                {companyProfile.phone && <span>📞 {companyProfile.phone}</span>}
-                {companyProfile.email && <span>✉ {companyProfile.email}</span>}
-                {companyProfile.address && <span>📍 {companyProfile.address}</span>}
-              </div>
+            <div className="border-t border-dashed border-border" />
+
+            {/* Invoice info */}
+            <div className="flex justify-between text-[10px]">
+              <span className="text-muted-foreground">{invoice.invoice_number}</span>
+              <span className="text-muted-foreground">{invoice.issue_date}</span>
+            </div>
+
+            {invoice.customers && (
+              <p className="text-[10px] text-foreground">العميل: {invoice.customers.name}</p>
             )}
 
-            {invoice.customers ? (
-              <div className="bg-muted rounded-lg p-3">
-                <p className="text-sm text-muted-foreground">العميل</p>
-                <p className="font-medium text-foreground">{invoice.customers.name}</p>
-              </div>
-            ) : null}
+            <div className="border-t border-dashed border-border" />
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border">
-                    <th className="text-right pb-2">الوصف</th>
-                    <th className="text-right pb-2">الكمية</th>
-                    <th className="text-right pb-2">السعر</th>
-                    <th className="text-right pb-2">الإجمالي</th>
+            {/* Items table */}
+            <table className="w-full text-[10px]">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-right pb-1 font-medium">الصنف</th>
+                  <th className="text-center pb-1 font-medium w-8">ك</th>
+                  <th className="text-center pb-1 font-medium">سعر</th>
+                  <th className="text-left pb-1 font-medium">المبلغ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item, index) => (
+                  <tr key={item.id || index} className="border-b border-dotted border-border">
+                    <td className="py-0.5 text-foreground">{item.description}</td>
+                    <td className="py-0.5 text-foreground text-center">{item.quantity}</td>
+                    <td className="py-0.5 text-foreground text-center">{formatCurrencyAmount(item.unit_price, currencyCode)}</td>
+                    <td className="py-0.5 text-foreground text-left">{formatCurrencyAmount(item.total, currencyCode)}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {items.map((item, index) => (
-                    <tr key={item.id || index} className="border-b border-border">
-                      <td className="py-2 text-foreground">{item.description}</td>
-                      <td className="py-2 text-foreground">{item.quantity}</td>
-                      <td className="py-2 text-foreground">{formatCurrencyAmount(item.unit_price, currencyCode)}</td>
-                      <td className="py-2 text-foreground">{formatCurrencyAmount(item.total, currencyCode)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="border-t border-dashed border-border" />
+
+            {/* Totals */}
+            <div className="text-[10px] space-y-0.5">
+              <div className="flex justify-between"><span>الفرعي</span><span>{formatCurrencyAmount(invoice.subtotal, currencyCode)}</span></div>
+              {(invoice.tax_amount ?? 0) > 0 && (
+                <div className="flex justify-between"><span>الضريبة</span><span>{formatCurrencyAmount(invoice.tax_amount, currencyCode)}</span></div>
+              )}
+              {(invoice.discount ?? 0) > 0 && (
+                <div className="flex justify-between"><span>الخصم</span><span>{formatCurrencyAmount(invoice.discount, currencyCode)}</span></div>
+              )}
+              <div className="border-t border-border" />
+              <div className="flex justify-between font-bold text-xs"><span>الإجمالي</span><span>{formatCurrencyAmount(invoice.total, currencyCode)}</span></div>
             </div>
 
-            <div className="bg-muted rounded-lg p-3 text-sm space-y-1">
-              <div className="flex justify-between"><span>المجموع الفرعي:</span><span>{formatCurrencyAmount(invoice.subtotal, currencyCode)}</span></div>
-              <div className="flex justify-between"><span>الضريبة:</span><span>{formatCurrencyAmount(invoice.tax_amount, currencyCode)}</span></div>
-              <div className="flex justify-between"><span>الخصم:</span><span>{formatCurrencyAmount(invoice.discount, currencyCode)}</span></div>
-              <div className="flex justify-between font-bold border-t border-border pt-1"><span>الإجمالي:</span><span>{formatCurrencyAmount(invoice.total, currencyCode)}</span></div>
-            </div>
+            {invoice.notes && (
+              <>
+                <div className="border-t border-dashed border-border" />
+                <p className="text-[9px] text-muted-foreground">{invoice.notes}</p>
+              </>
+            )}
 
-            {invoice.notes ? <p className="text-sm text-muted-foreground">{invoice.notes}</p> : null}
+            <div className="border-t border-dashed border-border" />
+            <p className="text-center text-[9px] text-muted-foreground">شكراً لتعاملكم معنا</p>
           </div>
         ) : null}
 
         <DialogFooter>
-          <Button variant="outline" onClick={onPrint}>
-            <Printer className="w-4 h-4 ml-2" />
+          <Button variant="outline" size="sm" onClick={onPrint}>
+            <Printer className="w-3 h-3 ml-1" />
             طباعة
           </Button>
         </DialogFooter>
