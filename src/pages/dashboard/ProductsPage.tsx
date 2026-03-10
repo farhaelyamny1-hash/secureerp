@@ -32,6 +32,7 @@ interface Product {
   cost: number | null;
   stock_quantity: number;
   sku: string | null;
+  barcode: string | null;
   unit: string | null;
   is_active: boolean | null;
   low_stock_threshold: number | null;
