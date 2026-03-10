@@ -277,6 +277,14 @@ const ProductsPage = () => {
                   onChange={(event) => setForm({ ...form, sku: event.target.value })}
                 />
                 <Input
+                  placeholder="الباركود"
+                  value={form.barcode}
+                  onChange={(event) => setForm({ ...form, barcode: event.target.value })}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <Input
                   placeholder="الوحدة (مثل: قطعة)"
                   value={form.unit}
                   onChange={(event) => setForm({ ...form, unit: event.target.value })}
