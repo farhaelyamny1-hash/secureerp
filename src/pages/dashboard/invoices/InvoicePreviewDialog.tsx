@@ -6,6 +6,7 @@ import { Printer } from "lucide-react";
 import { formatCurrencyAmount } from "@/lib/currency";
 import { Invoice, InvoiceItem } from "./types";
 import { CompanyProfile } from "@/lib/company";
+import BarcodeDisplay from "@/components/BarcodeDisplay";
 
 interface InvoicePreviewDialogProps {
   open: boolean;
