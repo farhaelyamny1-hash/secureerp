@@ -32,6 +32,7 @@ interface Product {
   cost: number | null;
   stock_quantity: number;
   sku: string | null;
+  barcode: string | null;
   unit: string | null;
   is_active: boolean | null;
   low_stock_threshold: number | null;
@@ -52,6 +53,7 @@ const ProductsPage = () => {
     cost: "",
     stock_quantity: "",
     sku: "",
+    barcode: "",
     unit: "قطعة",
     low_stock_threshold: "5",
   });
@@ -113,6 +115,7 @@ const ProductsPage = () => {
       cost: Number(form.cost) || 0,
       stock_quantity: Number(form.stock_quantity) || 0,
       sku: form.sku || null,
+      barcode: form.barcode || null,
       unit: form.unit || "piece",
       low_stock_threshold: Number(form.low_stock_threshold) || 5,
     };
@@ -157,6 +160,7 @@ const ProductsPage = () => {
       cost: String(product.cost ?? ""),
       stock_quantity: String(product.stock_quantity ?? ""),
       sku: product.sku || "",
+      barcode: product.barcode || "",
       unit: product.unit || "قطعة",
       low_stock_threshold: String(product.low_stock_threshold ?? 5),
     });
@@ -172,6 +176,7 @@ const ProductsPage = () => {
       cost: "",
       stock_quantity: "",
       sku: "",
+      barcode: "",
       unit: "قطعة",
       low_stock_threshold: "5",
     });
@@ -271,6 +276,14 @@ const ProductsPage = () => {
                   value={form.sku}
                   onChange={(event) => setForm({ ...form, sku: event.target.value })}
                 />
+                <Input
+                  placeholder="الباركود"
+                  value={form.barcode}
+                  onChange={(event) => setForm({ ...form, barcode: event.target.value })}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
                 <Input
                   placeholder="الوحدة (مثل: قطعة)"
                   value={form.unit}

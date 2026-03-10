@@ -6,6 +6,7 @@ import { Printer } from "lucide-react";
 import { formatCurrencyAmount } from "@/lib/currency";
 import { Invoice, InvoiceItem } from "./types";
 import { CompanyProfile } from "@/lib/company";
+import BarcodeDisplay from "@/components/BarcodeDisplay";
 
 interface InvoicePreviewDialogProps {
   open: boolean;
@@ -14,12 +15,13 @@ interface InvoicePreviewDialogProps {
   currencyCode: string;
   companyName: string;
   companyProfile?: CompanyProfile | null;
+  websiteUrl?: string;
   onOpenChange: (open: boolean) => void;
   onPrint: () => void;
 }
 
 const InvoicePreviewDialog = ({
-  open, invoice, items, currencyCode, companyName, companyProfile, onOpenChange, onPrint,
+  open, invoice, items, currencyCode, companyName, companyProfile, websiteUrl, onOpenChange, onPrint,
 }: InvoicePreviewDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -97,6 +99,13 @@ const InvoicePreviewDialog = ({
                 <div className="border-t border-dashed border-border" />
                 <p className="text-[9px] text-muted-foreground">{invoice.notes}</p>
               </>
+            )}
+
+            {/* Barcode */}
+            {invoice.invoice_number && (
+              <div className="flex justify-center pt-1">
+                <BarcodeDisplay value={invoice.invoice_number} height={30} width={1} fontSize={8} />
+              </div>
             )}
 
             <div className="border-t border-dashed border-border" />

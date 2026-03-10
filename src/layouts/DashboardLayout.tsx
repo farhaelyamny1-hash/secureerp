@@ -13,6 +13,7 @@ import NotificationsPopover from "@/components/NotificationsPopover";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "لوحة التحكم", href: "/dashboard" },
+  { icon: ShoppingCart, label: "نقطة البيع", href: "/dashboard/pos" },
   { icon: Users, label: "العملاء", href: "/dashboard/customers" },
   { icon: Package, label: "المنتجات", href: "/dashboard/products" },
   { icon: Warehouse, label: "المخزون", href: "/dashboard/inventory" },

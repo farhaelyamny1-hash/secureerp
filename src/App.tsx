@@ -26,6 +26,7 @@ import PaymentsPage from "./pages/dashboard/PaymentsPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import AdminUsersPage from "./pages/dashboard/AdminUsersPage";
+import POSPage from "./pages/dashboard/POSPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PendingApprovalPage from "./pages/PendingApprovalPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
@@ -80,6 +81,7 @@ const App = () => (
               <Route path="employees" element={<EmployeesPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="admin/users" element={<AdminUsersPage />} />
+              <Route path="pos" element={<POSPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
