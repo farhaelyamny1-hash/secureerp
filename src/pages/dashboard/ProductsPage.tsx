@@ -160,6 +160,7 @@ const ProductsPage = () => {
       cost: String(product.cost ?? ""),
       stock_quantity: String(product.stock_quantity ?? ""),
       sku: product.sku || "",
+      barcode: product.barcode || "",
       unit: product.unit || "قطعة",
       low_stock_threshold: String(product.low_stock_threshold ?? 5),
     });
