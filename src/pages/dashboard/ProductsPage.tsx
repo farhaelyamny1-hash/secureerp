@@ -53,6 +53,7 @@ const ProductsPage = () => {
     cost: "",
     stock_quantity: "",
     sku: "",
+    barcode: "",
     unit: "قطعة",
     low_stock_threshold: "5",
   });
