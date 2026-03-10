@@ -21,7 +21,7 @@ interface InvoicePreviewDialogProps {
 }
 
 const InvoicePreviewDialog = ({
-  open, invoice, items, currencyCode, companyName, companyProfile, onOpenChange, onPrint,
+  open, invoice, items, currencyCode, companyName, companyProfile, websiteUrl, onOpenChange, onPrint,
 }: InvoicePreviewDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
