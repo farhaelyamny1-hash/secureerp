@@ -211,19 +211,27 @@ const ProductsPage = () => {
           <h1 className="font-heading font-bold text-2xl text-foreground">المنتجات</h1>
           <p className="text-sm text-muted-foreground">إدارة كتالوج المنتجات والأسعار بالمُعملة الحالية</p>
         </div>
-        <Dialog
-          open={dialogOpen}
-          onOpenChange={(open) => {
-            setDialogOpen(open);
-            if (!open) resetForm();
-          }}
-        >
-          <DialogTrigger asChild>
-            <Button className="gradient-primary text-primary-foreground font-heading">
-              <Plus className="w-4 h-4 ml-2" />
-              إضافة منتج
-            </Button>
-          </DialogTrigger>
+        <div className="flex items-center gap-2">
+          <ExportMenu
+            data={filteredProducts.map(p => ({
+              الاسم: p.name, الوصف: p.description || "", السعر: p.price, التكلفة: p.cost || 0,
+              الكمية: p.stock_quantity, الباركود: p.barcode || "", SKU: p.sku || "",
+            }))}
+            fileName="المنتجات"
+          />
+          <Dialog
+            open={dialogOpen}
+            onOpenChange={(open) => {
+              setDialogOpen(open);
+              if (!open) resetForm();
+            }}
+          >
+            <DialogTrigger asChild>
+              <Button className="gradient-primary text-primary-foreground font-heading">
+                <Plus className="w-4 h-4 ml-2" />
+                إضافة منتج
+              </Button>
+            </DialogTrigger>
           <DialogContent className="sm:max-w-lg">
             <DialogHeader>
               <DialogTitle className="font-heading">{editingProduct ? "تعديل المنتج" : "إضافة منتج جديد"}</DialogTitle>
