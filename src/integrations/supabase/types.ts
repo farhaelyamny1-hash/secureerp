@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      business_categories: {
+        Row: {
+          created_at: string
+          default_product_categories: Json | null
+          default_services: Json | null
+          icon: string | null
+          id: string
+          name_ar: string
+          name_en: string
+        }
+        Insert: {
+          created_at?: string
+          default_product_categories?: Json | null
+          default_services?: Json | null
+          icon?: string | null
+          id?: string
+          name_ar: string
+          name_en: string
+        }
+        Update: {
+          created_at?: string
+          default_product_categories?: Json | null
+          default_services?: Json | null
+          icon?: string | null
+          id?: string
+          name_ar?: string
+          name_en?: string
+        }
+        Relationships: []
+      }
       categories: {
         Row: {
           company_id: string
@@ -49,6 +79,7 @@ export type Database = {
       companies: {
         Row: {
           address: string | null
+          business_category_id: string | null
           created_at: string
           currency: string | null
           email: string | null
@@ -58,11 +89,13 @@ export type Database = {
           owner_id: string
           phone: string | null
           plan_id: string | null
+          setup_completed: boolean
           tax_number: string | null
           updated_at: string
         }
         Insert: {
           address?: string | null
+          business_category_id?: string | null
           created_at?: string
           currency?: string | null
           email?: string | null
@@ -72,11 +105,13 @@ export type Database = {
           owner_id: string
           phone?: string | null
           plan_id?: string | null
+          setup_completed?: boolean
           tax_number?: string | null
           updated_at?: string
         }
         Update: {
           address?: string | null
+          business_category_id?: string | null
           created_at?: string
           currency?: string | null
           email?: string | null
@@ -86,10 +121,18 @@ export type Database = {
           owner_id?: string
           phone?: string | null
           plan_id?: string | null
+          setup_completed?: boolean
           tax_number?: string | null
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "companies_business_category_id_fkey"
+            columns: ["business_category_id"]
+            isOneToOne: false
+            referencedRelation: "business_categories"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "companies_plan_id_fkey"
             columns: ["plan_id"]
