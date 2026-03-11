@@ -312,6 +312,7 @@ const ProductsPage = () => {
           </DialogContent>
         </Dialog>
         </div>
+      </div>
 
       <div className="bg-card border border-border rounded-xl">
         <div className="p-4 border-b border-border">
