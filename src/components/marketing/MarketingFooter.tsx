@@ -52,7 +52,7 @@ const MarketingFooter = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">© 2026 SecureERP. جميع الحقوق محفوظة.</p>
+          <p className="text-sm text-muted-foreground">© 2026 SecureERP from Yota IT. جميع الحقوق محفوظة.</p>
           <a
             href="https://yotaiweb.lovable.app"
             target="_blank"

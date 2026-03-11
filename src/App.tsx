@@ -27,6 +27,7 @@ import ReportsPage from "./pages/dashboard/ReportsPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import AdminUsersPage from "./pages/dashboard/AdminUsersPage";
 import POSPage from "./pages/dashboard/POSPage";
+import BusinessSetupPage from "./pages/dashboard/BusinessSetupPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PendingApprovalPage from "./pages/PendingApprovalPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
@@ -59,6 +60,11 @@ const App = () => (
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/business-setup" element={
+              <ProtectedRoute>
+                <BusinessSetupPage />
+              </ProtectedRoute>
+            } />
 
             {/* ERP Dashboard - Protected */}
             <Route

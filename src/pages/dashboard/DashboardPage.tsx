@@ -116,7 +116,7 @@ const DashboardPage = () => {
     <div className="space-y-6">
       <div>
         <h1 className="font-heading font-bold text-2xl text-foreground">لوحة التحكم</h1>
-        <p className="text-sm text-muted-foreground">مرحباً بك في SecureERP</p>
+        <p className="text-sm text-muted-foreground">مرحباً بك في SecureERP from Yota IT</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

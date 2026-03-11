@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { Shield, MessageCircle } from "lucide-react";
+import { Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import whatsappIcon from "@/assets/whatsapp.png";
 
-const WHATSAPP_NUMBER = "201222350580";
+const WHATSAPP_NUMBER = "201010891984";
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "مرحبًا، لقد قمت بالتسجيل في SecureERP وأود تفعيل حسابي. شكرًا لكم."
 );
@@ -69,7 +69,7 @@ const PendingApprovalPage = () => {
             </a>
 
             <p className="text-xs text-muted-foreground mt-2">
-              أو أرسل رسالة مباشرة إلى الرقم: <span dir="ltr" className="font-semibold">+20 122 235 0580</span>
+              أو أرسل رسالة مباشرة إلى الرقم: <span dir="ltr" className="font-semibold">01010891984</span>
             </p>
           </div>
 
@@ -86,6 +86,10 @@ const PendingApprovalPage = () => {
             </Button>
           </Link>
         </div>
+
+        <p className="text-xs text-muted-foreground mt-6">
+          SecureERP from Yota IT
+        </p>
       </motion.div>
     </div>
   );

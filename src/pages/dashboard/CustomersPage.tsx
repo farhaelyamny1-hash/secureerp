@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search, MoreHorizontal, Trash2, Edit } from "lucide-react";
+import ExportMenu from "@/components/ExportMenu";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
@@ -101,13 +102,18 @@ const CustomersPage = () => {
           <h1 className="font-heading font-bold text-2xl text-foreground">العملاء</h1>
           <p className="text-sm text-muted-foreground">إدارة قاعدة بيانات العملاء</p>
         </div>
-        <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
-          <DialogTrigger asChild>
-            <Button className="gradient-primary text-primary-foreground font-heading">
-              <Plus className="w-4 h-4 ml-2" />
-              إضافة عميل
-            </Button>
-          </DialogTrigger>
+        <div className="flex items-center gap-2">
+          <ExportMenu
+            data={filtered.map(c => ({ الاسم: c.name, البريد: c.email || "", الهاتف: c.phone || "", العنوان: c.address || "", "الرقم الضريبي": c.tax_number || "" }))}
+            fileName="العملاء"
+          />
+          <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
+            <DialogTrigger asChild>
+              <Button className="gradient-primary text-primary-foreground font-heading">
+                <Plus className="w-4 h-4 ml-2" />
+                إضافة عميل
+              </Button>
+            </DialogTrigger>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle className="font-heading">{editingCustomer ? "تعديل العميل" : "إضافة عميل جديد"}</DialogTitle>
@@ -125,6 +131,7 @@ const CustomersPage = () => {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       <div className="bg-card border border-border rounded-xl">
