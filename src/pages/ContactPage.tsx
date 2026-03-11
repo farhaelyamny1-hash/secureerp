@@ -27,9 +27,9 @@ const ContactPage = () => {
           >
             <div className="space-y-6">
               {[
-                { icon: Phone, label: "الهاتف", value: "01222350580" },
-                { icon: Mail, label: "البريد الإلكتروني", value: "nroot.it@pm.me" },
-                { icon: MapPin, label: "الاسم", value: "Eng Hassan Mohamed" },
+                { icon: Phone, label: "الهاتف", value: "01010891984" },
+                { icon: Mail, label: "البريد الإلكتروني", value: "info@yotait.com" },
+                { icon: MapPin, label: "الشركة", value: "Yota IT" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">

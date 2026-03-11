@@ -60,6 +60,11 @@ const App = () => (
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/business-setup" element={
+              <ProtectedRoute>
+                <BusinessSetupPage />
+              </ProtectedRoute>
+            } />
 
             {/* ERP Dashboard - Protected */}
             <Route
