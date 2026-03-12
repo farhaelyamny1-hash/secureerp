@@ -3,7 +3,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Users, Package, Warehouse, FileText, Receipt,
   CreditCard, ShoppingCart, BarChart3, UserCog, Bell, Search,
-  Shield, ChevronLeft, Menu, LogOut, Settings, X
+  Shield, ChevronLeft, Menu, LogOut, Settings, X, HardDrive
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
@@ -23,6 +23,7 @@ const menuItems = [
   { icon: ShoppingCart, label: "المصروفات", href: "/dashboard/expenses" },
   { icon: BarChart3, label: "التقارير", href: "/dashboard/reports" },
   { icon: UserCog, label: "الموظفين", href: "/dashboard/employees" },
+  { icon: HardDrive, label: "النسخ الاحتياطي", href: "/dashboard/backups" },
   { icon: Settings, label: "الإعدادات", href: "/dashboard/settings" },
   { icon: Shield, label: "إدارة الأعضاء", href: "/dashboard/admin/users" },
 ];

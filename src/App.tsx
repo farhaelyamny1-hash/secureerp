@@ -27,6 +27,7 @@ import ReportsPage from "./pages/dashboard/ReportsPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import AdminUsersPage from "./pages/dashboard/AdminUsersPage";
 import POSPage from "./pages/dashboard/POSPage";
+import BackupsPage from "./pages/dashboard/BackupsPage";
 import BusinessSetupPage from "./pages/dashboard/BusinessSetupPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PendingApprovalPage from "./pages/PendingApprovalPage";
@@ -88,6 +89,7 @@ const App = () => (
               <Route path="settings" element={<SettingsPage />} />
               <Route path="admin/users" element={<AdminUsersPage />} />
               <Route path="pos" element={<POSPage />} />
+              <Route path="backups" element={<BackupsPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

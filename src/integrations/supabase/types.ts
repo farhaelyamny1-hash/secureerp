@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      backups: {
+        Row: {
+          backup_type: string
+          company_id: string
+          completed_at: string | null
+          created_at: string
+          created_by: string
+          file_size: number | null
+          file_url: string | null
+          id: string
+          status: string
+          tables_included: Json | null
+        }
+        Insert: {
+          backup_type?: string
+          company_id: string
+          completed_at?: string | null
+          created_at?: string
+          created_by: string
+          file_size?: number | null
+          file_url?: string | null
+          id?: string
+          status?: string
+          tables_included?: Json | null
+        }
+        Update: {
+          backup_type?: string
+          company_id?: string
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string
+          file_size?: number | null
+          file_url?: string | null
+          id?: string
+          status?: string
+          tables_included?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "backups_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       business_categories: {
         Row: {
           created_at: string
