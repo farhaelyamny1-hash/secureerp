@@ -12,57 +12,67 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     const checkAccess = async () => {
       if (!user) return;
 
-      // Get company
-      const { data: companyId } = await supabase.rpc("get_user_company_id", { _user_id: user.id });
-      if (!companyId) {
-        setSubStatus("ok");
-        return;
-      }
-
-      // Check setup completed
-      const { data: company } = await supabase
-        .from("companies")
-        .select("setup_completed")
-        .eq("id", companyId)
-        .maybeSingle();
-
-      if (company && !company.setup_completed) {
-        setSubStatus("no_setup");
-        return;
-      }
-
-      // Check subscription
-      const { data: sub } = await supabase
-        .from("subscriptions")
-        .select("status, trial_end, current_period_end")
-        .eq("company_id", companyId)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
-
-      if (!sub) {
-        setSubStatus("ok");
-        return;
-      }
-
-      const now = new Date();
-
-      if (sub.status === "trial") {
-        if (sub.trial_end && new Date(sub.trial_end) < now) {
-          setSubStatus("trial_expired");
+      try {
+        // Get company
+        const { data: companyId, error: rpcError } = await supabase.rpc("get_user_company_id", { _user_id: user.id });
+        if (rpcError) {
+          console.error("get_user_company_id error:", rpcError);
+          setSubStatus("ok");
           return;
         }
-      } else if (sub.status === "expired" || sub.status === "suspended") {
-        setSubStatus("expired");
-        return;
-      } else if (sub.status === "active") {
-        if (sub.current_period_end && new Date(sub.current_period_end) < now) {
+        if (!companyId) {
+          setSubStatus("no_setup");
+          return;
+        }
+
+        // Check setup completed
+        const { data: company } = await supabase
+          .from("companies")
+          .select("setup_completed")
+          .eq("id", companyId)
+          .maybeSingle();
+
+        if (company && !company.setup_completed) {
+          setSubStatus("no_setup");
+          return;
+        }
+
+        // Check subscription
+        const { data: sub } = await supabase
+          .from("subscriptions")
+          .select("status, trial_end, current_period_end")
+          .eq("company_id", companyId)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (!sub) {
+          setSubStatus("ok");
+          return;
+        }
+
+        const now = new Date();
+
+        if (sub.status === "trial") {
+          if (sub.trial_end && new Date(sub.trial_end) < now) {
+            setSubStatus("trial_expired");
+            return;
+          }
+        } else if (sub.status === "expired" || sub.status === "suspended") {
           setSubStatus("expired");
           return;
+        } else if (sub.status === "active") {
+          if (sub.current_period_end && new Date(sub.current_period_end) < now) {
+            setSubStatus("expired");
+            return;
+          }
         }
-      }
 
-      setSubStatus("ok");
+        setSubStatus("ok");
+      } catch (err) {
+        console.error("ProtectedRoute checkAccess error:", err);
+        setSubStatus("ok");
+      }
     };
 
     if (user) checkAccess();
