@@ -23,6 +23,7 @@ const menuItems = [
   { icon: ShoppingCart, label: "المصروفات", href: "/dashboard/expenses" },
   { icon: BarChart3, label: "التقارير", href: "/dashboard/reports" },
   { icon: UserCog, label: "الموظفين", href: "/dashboard/employees" },
+  { icon: HardDrive, label: "النسخ الاحتياطي", href: "/dashboard/backups" },
   { icon: Settings, label: "الإعدادات", href: "/dashboard/settings" },
   { icon: Shield, label: "إدارة الأعضاء", href: "/dashboard/admin/users" },
 ];
