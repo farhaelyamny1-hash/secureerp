@@ -26,6 +26,7 @@ const menuItems = [
   { icon: HardDrive, label: "النسخ الاحتياطي", href: "/dashboard/backups" },
   { icon: Settings, label: "الإعدادات", href: "/dashboard/settings" },
   { icon: Shield, label: "إدارة الأعضاء", href: "/dashboard/admin/users" },
+  { icon: Shield, label: "لوحة المسؤول", href: "/dashboard/admin/dashboard" },
 ];
 
 const DashboardLayout = () => {
