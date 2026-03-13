@@ -26,6 +26,7 @@ const menuItems = [
   { icon: HardDrive, label: "النسخ الاحتياطي", href: "/dashboard/backups" },
   { icon: Settings, label: "الإعدادات", href: "/dashboard/settings" },
   { icon: Shield, label: "إدارة الأعضاء", href: "/dashboard/admin/users" },
+  { icon: Shield, label: "لوحة المسؤول", href: "/dashboard/admin/dashboard" },
 ];
 
 const DashboardLayout = () => {
@@ -76,7 +77,7 @@ const DashboardLayout = () => {
         {/* Menu */}
         <nav className="flex-1 overflow-y-auto py-4 px-2 space-y-1">
           {menuItems
-            .filter((item) => item.href !== "/dashboard/admin/users" || isSuperAdmin)
+            .filter((item) => !item.href.startsWith("/dashboard/admin/") || isSuperAdmin)
             .map((item) => {
             const isActive = location.pathname === item.href;
             return (
