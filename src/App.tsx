@@ -26,6 +26,7 @@ import PaymentsPage from "./pages/dashboard/PaymentsPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import AdminUsersPage from "./pages/dashboard/AdminUsersPage";
+import AdminDashboardPage from "./pages/dashboard/AdminDashboardPage";
 import POSPage from "./pages/dashboard/POSPage";
 import BackupsPage from "./pages/dashboard/BackupsPage";
 import BusinessSetupPage from "./pages/dashboard/BusinessSetupPage";
