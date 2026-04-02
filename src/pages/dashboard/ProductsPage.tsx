@@ -265,7 +265,7 @@ const ProductsPage = () => {
         <div className="flex items-center gap-2">
           <ExportMenu
             data={filteredProducts.map(p => ({
-              الاسم: p.name, الوصف: p.description || "", السعر: p.price, التكلفة: p.cost || 0,
+              الاسم: p.name, الفئة: p.categories?.name || "", الوصف: p.description || "", السعر: p.price, التكلفة: p.cost || 0,
               الكمية: p.stock_quantity, الباركود: p.barcode || "", SKU: p.sku || "",
             }))}
             fileName="المنتجات"
