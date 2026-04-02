@@ -22,8 +22,20 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { formatCurrencyAmount, getCurrencyOption } from "@/lib/currency";
 import { getCompanyProfile, getUserCompanyId } from "@/lib/company";
+
+interface Category {
+  id: string;
+  name: string;
+}
 
 interface Product {
   id: string;
@@ -37,6 +49,8 @@ interface Product {
   unit: string | null;
   is_active: boolean | null;
   low_stock_threshold: number | null;
+  category_id: string | null;
+  categories?: { name: string } | null;
 }
 
 const ProductsPage = () => {
@@ -47,6 +61,9 @@ const ProductsPage = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [currencyCode, setCurrencyCode] = useState("EGP");
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -57,6 +74,7 @@ const ProductsPage = () => {
     barcode: "",
     unit: "قطعة",
     low_stock_threshold: "5",
+    category_id: "",
   });
 
   const fetchProducts = async () => {
@@ -75,7 +93,7 @@ const ProductsPage = () => {
 
       const { data, error } = await supabase
         .from("products")
-        .select("*")
+        .select("*, categories(name)")
         .eq("company_id", company.id)
         .order("created_at", { ascending: false });
 
@@ -84,7 +102,16 @@ const ProductsPage = () => {
         return;
       }
 
-      setProducts(data || []);
+      setProducts((data as Product[]) || []);
+
+      // Fetch categories
+      const { data: cats } = await supabase
+        .from("categories")
+        .select("id, name")
+        .eq("company_id", company.id)
+        .eq("type", "product")
+        .order("name");
+      setCategories(cats || []);
     } catch {
       toast.error("خطأ في تحميل المنتجات");
     } finally {
@@ -119,6 +146,7 @@ const ProductsPage = () => {
       barcode: form.barcode || null,
       unit: form.unit || "piece",
       low_stock_threshold: Number(form.low_stock_threshold) || 5,
+      category_id: form.category_id || null,
     };
 
     if (editingProduct) {
@@ -164,6 +192,7 @@ const ProductsPage = () => {
       barcode: product.barcode || "",
       unit: product.unit || "قطعة",
       low_stock_threshold: String(product.low_stock_threshold ?? 5),
+      category_id: product.category_id || "",
     });
     setDialogOpen(true);
   };
@@ -180,6 +209,7 @@ const ProductsPage = () => {
       barcode: "",
       unit: "قطعة",
       low_stock_threshold: "5",
+      category_id: "",
     });
   };
 
@@ -191,16 +221,37 @@ const ProductsPage = () => {
     return { label: "متوفر", color: "bg-success/10 text-success" };
   };
 
-  const filteredProducts = useMemo(() => {
-    const query = search.trim().toLowerCase();
-    if (!query) return products;
+  const handleAddCategory = async () => {
+    if (!user || !newCategoryName.trim()) return;
+    const companyId = await getUserCompanyId(user.id);
+    if (!companyId) return;
+    const { data, error } = await supabase
+      .from("categories")
+      .insert({ name: newCategoryName.trim(), company_id: companyId, type: "product" })
+      .select("id, name")
+      .single();
+    if (error) { toast.error("خطأ في إضافة الفئة"); return; }
+    setCategories(prev => [...prev, data]);
+    setForm({ ...form, category_id: data.id });
+    setNewCategoryName("");
+    toast.success("تم إضافة الفئة");
+  };
 
-    return products.filter((product) => {
-      const name = product.name.toLowerCase();
-      const sku = product.sku?.toLowerCase() || "";
-      return name.includes(query) || sku.includes(query);
-    });
-  }, [products, search]);
+  const filteredProducts = useMemo(() => {
+    let result = products;
+    if (filterCategory !== "all") {
+      result = result.filter(p => p.category_id === filterCategory);
+    }
+    const query = search.trim().toLowerCase();
+    if (query) {
+      result = result.filter((product) => {
+        const name = product.name.toLowerCase();
+        const sku = product.sku?.toLowerCase() || "";
+        return name.includes(query) || sku.includes(query);
+      });
+    }
+    return result;
+  }, [products, search, filterCategory]);
 
   const currencySymbol = getCurrencyOption(currencyCode).symbol;
 
@@ -214,7 +265,7 @@ const ProductsPage = () => {
         <div className="flex items-center gap-2">
           <ExportMenu
             data={filteredProducts.map(p => ({
-              الاسم: p.name, الوصف: p.description || "", السعر: p.price, التكلفة: p.cost || 0,
+              الاسم: p.name, الفئة: p.categories?.name || "", الوصف: p.description || "", السعر: p.price, التكلفة: p.cost || 0,
               الكمية: p.stock_quantity, الباركود: p.barcode || "", SKU: p.sku || "",
             }))}
             fileName="المنتجات"
@@ -243,6 +294,32 @@ const ProductsPage = () => {
                 value={form.name}
                 onChange={(event) => setForm({ ...form, name: event.target.value })}
               />
+
+              {/* Category Select */}
+              <div className="space-y-2">
+                <Select value={form.category_id} onValueChange={(val) => setForm({ ...form, category_id: val })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الفئة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map(c => (
+                      <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="أضف فئة جديدة..."
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    className="text-sm"
+                  />
+                  <Button type="button" variant="outline" size="sm" onClick={handleAddCategory} disabled={!newCategoryName.trim()}>
+                    <Plus className="w-3 h-3" />
+                  </Button>
+                </div>
+              </div>
+
               <Input
                 placeholder="الوصف"
                 value={form.description}
@@ -315,8 +392,8 @@ const ProductsPage = () => {
       </div>
 
       <div className="bg-card border border-border rounded-xl">
-        <div className="p-4 border-b border-border">
-          <div className="relative">
+        <div className="p-4 border-b border-border flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1">
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               placeholder="بحث عن منتج..."
@@ -325,6 +402,17 @@ const ProductsPage = () => {
               onChange={(event) => setSearch(event.target.value)}
             />
           </div>
+          <Select value={filterCategory} onValueChange={setFilterCategory}>
+            <SelectTrigger className="w-full sm:w-48">
+              <SelectValue placeholder="كل الفئات" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">كل الفئات</SelectItem>
+              {categories.map(c => (
+                <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="overflow-x-auto">
@@ -337,6 +425,7 @@ const ProductsPage = () => {
               <thead>
                 <tr className="border-b border-border">
                   <th className="text-right text-xs font-semibold text-muted-foreground p-4">المنتج</th>
+                  <th className="text-right text-xs font-semibold text-muted-foreground p-4">الفئة</th>
                   <th className="text-right text-xs font-semibold text-muted-foreground p-4">SKU</th>
                   <th className="text-right text-xs font-semibold text-muted-foreground p-4">السعر</th>
                   <th className="text-right text-xs font-semibold text-muted-foreground p-4">المخزون</th>
@@ -359,6 +448,7 @@ const ProductsPage = () => {
                         <div className="font-medium">{product.name}</div>
                         <div className="text-xs text-muted-foreground">{product.unit || "—"}</div>
                       </td>
+                      <td className="p-4 text-sm text-muted-foreground">{product.categories?.name || "—"}</td>
                       <td className="p-4 text-sm text-muted-foreground">{product.sku || "—"}</td>
                       <td className="p-4 text-sm font-semibold text-foreground">
                         {formatCurrencyAmount(product.price, currencyCode)}
