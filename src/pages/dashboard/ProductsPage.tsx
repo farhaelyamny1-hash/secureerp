@@ -93,7 +93,7 @@ const ProductsPage = () => {
 
       const { data, error } = await supabase
         .from("products")
-        .select("*")
+        .select("*, categories(name)")
         .eq("company_id", company.id)
         .order("created_at", { ascending: false });
 
@@ -102,7 +102,16 @@ const ProductsPage = () => {
         return;
       }
 
-      setProducts(data || []);
+      setProducts((data as Product[]) || []);
+
+      // Fetch categories
+      const { data: cats } = await supabase
+        .from("categories")
+        .select("id, name")
+        .eq("company_id", company.id)
+        .eq("type", "product")
+        .order("name");
+      setCategories(cats || []);
     } catch {
       toast.error("خطأ في تحميل المنتجات");
     } finally {
