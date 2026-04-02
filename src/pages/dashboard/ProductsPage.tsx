@@ -192,6 +192,7 @@ const ProductsPage = () => {
       barcode: product.barcode || "",
       unit: product.unit || "قطعة",
       low_stock_threshold: String(product.low_stock_threshold ?? 5),
+      category_id: product.category_id || "",
     });
     setDialogOpen(true);
   };
