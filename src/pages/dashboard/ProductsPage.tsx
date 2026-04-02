@@ -146,6 +146,7 @@ const ProductsPage = () => {
       barcode: form.barcode || null,
       unit: form.unit || "piece",
       low_stock_threshold: Number(form.low_stock_threshold) || 5,
+      category_id: form.category_id || null,
     };
 
     if (editingProduct) {
