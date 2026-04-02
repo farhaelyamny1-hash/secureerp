@@ -61,6 +61,9 @@ const ProductsPage = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [currencyCode, setCurrencyCode] = useState("EGP");
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [filterCategory, setFilterCategory] = useState<string>("all");
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -71,6 +74,7 @@ const ProductsPage = () => {
     barcode: "",
     unit: "قطعة",
     low_stock_threshold: "5",
+    category_id: "",
   });
 
   const fetchProducts = async () => {
