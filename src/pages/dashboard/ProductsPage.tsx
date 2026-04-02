@@ -221,16 +221,37 @@ const ProductsPage = () => {
     return { label: "متوفر", color: "bg-success/10 text-success" };
   };
 
-  const filteredProducts = useMemo(() => {
-    const query = search.trim().toLowerCase();
-    if (!query) return products;
+  const handleAddCategory = async () => {
+    if (!user || !newCategoryName.trim()) return;
+    const companyId = await getUserCompanyId(user.id);
+    if (!companyId) return;
+    const { data, error } = await supabase
+      .from("categories")
+      .insert({ name: newCategoryName.trim(), company_id: companyId, type: "product" })
+      .select("id, name")
+      .single();
+    if (error) { toast.error("خطأ في إضافة الفئة"); return; }
+    setCategories(prev => [...prev, data]);
+    setForm({ ...form, category_id: data.id });
+    setNewCategoryName("");
+    toast.success("تم إضافة الفئة");
+  };
 
-    return products.filter((product) => {
-      const name = product.name.toLowerCase();
-      const sku = product.sku?.toLowerCase() || "";
-      return name.includes(query) || sku.includes(query);
-    });
-  }, [products, search]);
+  const filteredProducts = useMemo(() => {
+    let result = products;
+    if (filterCategory !== "all") {
+      result = result.filter(p => p.category_id === filterCategory);
+    }
+    const query = search.trim().toLowerCase();
+    if (query) {
+      result = result.filter((product) => {
+        const name = product.name.toLowerCase();
+        const sku = product.sku?.toLowerCase() || "";
+        return name.includes(query) || sku.includes(query);
+      });
+    }
+    return result;
+  }, [products, search, filterCategory]);
 
   const currencySymbol = getCurrencyOption(currencyCode).symbol;
 
