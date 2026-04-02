@@ -425,6 +425,7 @@ const ProductsPage = () => {
               <thead>
                 <tr className="border-b border-border">
                   <th className="text-right text-xs font-semibold text-muted-foreground p-4">المنتج</th>
+                  <th className="text-right text-xs font-semibold text-muted-foreground p-4">الفئة</th>
                   <th className="text-right text-xs font-semibold text-muted-foreground p-4">SKU</th>
                   <th className="text-right text-xs font-semibold text-muted-foreground p-4">السعر</th>
                   <th className="text-right text-xs font-semibold text-muted-foreground p-4">المخزون</th>
