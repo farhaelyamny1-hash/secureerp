@@ -294,6 +294,32 @@ const ProductsPage = () => {
                 value={form.name}
                 onChange={(event) => setForm({ ...form, name: event.target.value })}
               />
+
+              {/* Category Select */}
+              <div className="space-y-2">
+                <Select value={form.category_id} onValueChange={(val) => setForm({ ...form, category_id: val })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="اختر الفئة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map(c => (
+                      <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="أضف فئة جديدة..."
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    className="text-sm"
+                  />
+                  <Button type="button" variant="outline" size="sm" onClick={handleAddCategory} disabled={!newCategoryName.trim()}>
+                    <Plus className="w-3 h-3" />
+                  </Button>
+                </div>
+              </div>
+
               <Input
                 placeholder="الوصف"
                 value={form.description}
