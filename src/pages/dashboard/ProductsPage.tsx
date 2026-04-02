@@ -448,6 +448,7 @@ const ProductsPage = () => {
                         <div className="font-medium">{product.name}</div>
                         <div className="text-xs text-muted-foreground">{product.unit || "—"}</div>
                       </td>
+                      <td className="p-4 text-sm text-muted-foreground">{product.categories?.name || "—"}</td>
                       <td className="p-4 text-sm text-muted-foreground">{product.sku || "—"}</td>
                       <td className="p-4 text-sm font-semibold text-foreground">
                         {formatCurrencyAmount(product.price, currencyCode)}
