@@ -22,8 +22,20 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { formatCurrencyAmount, getCurrencyOption } from "@/lib/currency";
 import { getCompanyProfile, getUserCompanyId } from "@/lib/company";
+
+interface Category {
+  id: string;
+  name: string;
+}
 
 interface Product {
   id: string;
@@ -37,6 +49,8 @@ interface Product {
   unit: string | null;
   is_active: boolean | null;
   low_stock_threshold: number | null;
+  category_id: string | null;
+  categories?: { name: string } | null;
 }
 
 const ProductsPage = () => {
