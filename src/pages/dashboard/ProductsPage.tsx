@@ -392,8 +392,8 @@ const ProductsPage = () => {
       </div>
 
       <div className="bg-card border border-border rounded-xl">
-        <div className="p-4 border-b border-border">
-          <div className="relative">
+        <div className="p-4 border-b border-border flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1">
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               placeholder="بحث عن منتج..."
@@ -402,6 +402,17 @@ const ProductsPage = () => {
               onChange={(event) => setSearch(event.target.value)}
             />
           </div>
+          <Select value={filterCategory} onValueChange={setFilterCategory}>
+            <SelectTrigger className="w-full sm:w-48">
+              <SelectValue placeholder="كل الفئات" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">كل الفئات</SelectItem>
+              {categories.map(c => (
+                <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="overflow-x-auto">
