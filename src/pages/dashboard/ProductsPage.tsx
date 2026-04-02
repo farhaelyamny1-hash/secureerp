@@ -209,6 +209,7 @@ const ProductsPage = () => {
       barcode: "",
       unit: "قطعة",
       low_stock_threshold: "5",
+      category_id: "",
     });
   };
 
