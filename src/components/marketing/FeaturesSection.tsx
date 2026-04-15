@@ -31,7 +31,7 @@ const FeaturesSection = () => {
         >
           <span className="text-sm font-semibold text-secondary font-heading">المميزات</span>
           <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground mt-2 mb-4">
-            كل ما تحتاجه في مكان واحد
+            برنامج محاسبة سحابي شامل لكل احتياجاتك
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             أكثر من 12 وحدة متكاملة تغطي جميع احتياجات إدارة أعمالك من المبيعات والمشتريات وحتى التقارير والتحليلات
