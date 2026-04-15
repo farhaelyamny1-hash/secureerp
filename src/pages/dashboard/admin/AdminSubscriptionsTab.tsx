@@ -91,7 +91,7 @@ const AdminSubscriptionsTab = () => {
   const saveEdit = async () => {
     if (!editSub) return;
     setSaving(true);
-    const updates: Record<string, any> = {
+    const updates: { status: string; plan_id: string; current_period_end?: string } = {
       status: editStatus,
       plan_id: editPlan,
     };

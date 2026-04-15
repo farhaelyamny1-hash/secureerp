@@ -30,9 +30,9 @@ const HeroSection = () => {
             </div>
 
             <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6" style={{ color: 'hsl(0, 0%, 100%)' }}>
-              أدِر أعمالك بالكامل
+              نظام حسابات سحابي متكامل
               <br />
-              <span className="text-gradient">من مكان واحد</span>
+              <span className="text-gradient">لإدارة موارد المؤسسات</span>
             </h1>
 
             <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-lg" style={{ color: 'hsl(220, 10%, 70%)' }}>
