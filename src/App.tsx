@@ -12,6 +12,11 @@ import FeaturesPage from "./pages/FeaturesPage";
 import PricingPage from "./pages/PricingPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsPage from "./pages/TermsPage";
+import HelpCenterPage from "./pages/HelpCenterPage";
+import DocumentationPage from "./pages/DocumentationPage";
+import BlogPage from "./pages/BlogPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
@@ -55,6 +60,11 @@ const App = () => (
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/help" element={<HelpCenterPage />} />
+              <Route path="/docs" element={<DocumentationPage />} />
+              <Route path="/blog" element={<BlogPage />} />
             </Route>
 
             {/* Auth pages */}
