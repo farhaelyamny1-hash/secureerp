@@ -60,9 +60,6 @@ const InvoicePreviewDialog = ({
                 {invoice.customers ? (
                   <div>
                     <p className="font-semibold text-sm text-foreground">{invoice.customers.name}</p>
-                    {invoice.customers.phone && <p className="text-xs text-muted-foreground mt-1">{invoice.customers.phone}</p>}
-                    {invoice.customers.email && <p className="text-xs text-muted-foreground">{invoice.customers.email}</p>}
-                    {invoice.customers.address && <p className="text-xs text-muted-foreground">{invoice.customers.address}</p>}
                   </div>
                 ) : (
                   <p className="text-xs text-muted-foreground">عميل نقدي</p>
