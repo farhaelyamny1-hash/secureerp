@@ -17,7 +17,10 @@ import TermsPage from "./pages/TermsPage";
 import HelpCenterPage from "./pages/HelpCenterPage";
 import DocumentationPage from "./pages/DocumentationPage";
 import BlogPage from "./pages/BlogPage";
+import YotaAIPage from "./pages/YotaAIPage";
 import LoginPage from "./pages/LoginPage";
+import { HelmetProvider } from "react-helmet-async";
+import YotaFloatingButton from "./components/yota-ai/YotaFloatingButton";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import CustomersPage from "./pages/dashboard/CustomersPage";
@@ -45,14 +48,16 @@ import OfflineIndicator from "./components/OfflineIndicator";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <OfflineIndicator />
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <OfflineIndicator />
+        <BrowserRouter>
+          <AuthProvider>
+            <YotaFloatingButton />
+            <Routes>
             {/* Marketing pages */}
             <Route element={<MarketingLayout />}>
               <Route path="/" element={<HomePage />} />
@@ -65,6 +70,7 @@ const App = () => (
               <Route path="/help" element={<HelpCenterPage />} />
               <Route path="/docs" element={<DocumentationPage />} />
               <Route path="/blog" element={<BlogPage />} />
+              <Route path="/yota-ai" element={<YotaAIPage />} />
             </Route>
 
             {/* Auth pages */}
@@ -106,12 +112,13 @@ const App = () => (
               <Route path="backups" element={<BackupsPage />} />
             </Route>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;
