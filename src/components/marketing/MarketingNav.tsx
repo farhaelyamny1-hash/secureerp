@@ -7,10 +7,11 @@ import logo from "@/assets/securetech-logo.png";
 const MarketingNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const links = [
+  const links: Array<{ href: string; label: string; highlight?: boolean }> = [
     { href: "/", label: "الرئيسية" },
     { href: "/features", label: "المميزات" },
     { href: "/pricing", label: "الأسعار" },
+    { href: "/yota-ai", label: "Yota AI", highlight: true },
     { href: "/about", label: "عن النظام" },
     { href: "/contact", label: "تواصل معنا" },
   ];
@@ -28,8 +29,13 @@ const MarketingNav = () => {
             <Link
               key={link.href}
               to={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className={
+                link.highlight
+                  ? "text-sm font-bold text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1"
+                  : "text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              }
             >
+              {link.highlight && <span className="text-accent">✨</span>}
               {link.label}
             </Link>
           ))}
